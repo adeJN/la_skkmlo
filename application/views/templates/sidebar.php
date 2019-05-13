@@ -3,7 +3,7 @@
 
  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo site_url('');?>">
         <div class="sidebar-brand-icon">
           <img width="50px" src="<?php echo site_url('assets/img/');?>logo.png">
         </div>
@@ -42,7 +42,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Pilih:</h6>
             <a class="collapse-item" href="<?php echo site_url('pengguna/add');?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
-            <a class="collapse-item"  href="<?php echo site_url('pengguna');?>"><i class="fas fa-fw fa-bars"></i> List</a>
+            <a class="collapse-item"  href="<?php echo site_url('pengguna');?>"><i class="fas fa-fw fa-bars"></i> List Admin</a>
+            <a class="collapse-item"  href="<?php echo site_url('pengguna/mahasiswa');?>"><i class="fas fa-fw fa-bars"></i> List Mahasiswa</a>
           </div>
         </div>
       </li>
@@ -59,15 +60,15 @@
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('point');?>">
-          <i class="fas fa-fw fa-tags"></i>
-          <span>Point</span>
-        </a>
-      </li>
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
       <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+         <a class="nav-link" href="<?php echo site_url('tatacarainfo');?>" >
+          <i class="fas fa-fw fa-info"></i>
+          <span>Tata Cara dan info </span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-sitemap"></i>
@@ -171,10 +172,19 @@
       </li>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('point');?>"  >
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#poin" aria-expanded="true" aria-controls="Kegiatan">
           <i class="fas fa-fw fa-tags"></i>
           <span>Poin Mahasiswa</span>
         </a>
+        <div id="poin" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pilih:</h6>
+            <a class="collapse-item" href="<?php echo site_url('pengguna');?>"><i class="fas fa-fw fa-users"></i> Semua mahasiswa</a>
+            <a class="collapse-item"  href="<?php echo site_url('point');?>">
+          <i class="fas fa-fw fa-tags"></i>
+          <span>Poin Mahasiswa</span></a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Kegiatan" aria-expanded="true" aria-controls="Kegiatan">
@@ -190,7 +200,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" >
+        <a class="nav-link" href="tatacarainfo" >
           <i class="fas fa-fw fa-info"></i>
           <span>Tata Cara</span>
         </a>
@@ -255,13 +265,20 @@
       </li>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('pengguna/registrasi');?>"  >
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Kegiatan" aria-expanded="true" aria-controls="Kegiatan">
           <i class="fas fa-fw fa-tags"></i>
           <span>Poin Saya</span>
         </a>
+        <div id="Kegiatan" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pilih:</h6>
+            <a class="collapse-item" href="<?php echo site_url('mhs/tp');?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
+            <a class="collapse-item"  href="<?php echo site_url('mhs');?>"><i class="fas fa-fw fa-bars"></i> List</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" >
+        <a class="nav-link" href="<?php echo site_url('kegiatan');?>" >
           <i class="fas fa-fw fa-calendar"></i>
           <span>Kegiatan</span>
         </a>

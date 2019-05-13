@@ -39,14 +39,14 @@
               <?php echo form_open('home/register', array('class' => 'needs-validation', 'novalidate' => '')); ?>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="number" class="form-control form-control-user" placeholder="Masukkan NIM" name="nim">
+                    <input type="number" class="form-control form-control-user" value="<?php echo set_value('nim')?>" placeholder="Masukkan NIM" name="nim">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" placeholder="Masukkan Username" name="username">
+                    <input type="text" class="form-control form-control-user" value="<?php echo set_value('username')?>" placeholder="Masukkan Username" name="username">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" placeholder="Masukkan Nama Lengkap" name="nama">
+                  <input type="text" class="form-control form-control-user" value="<?php echo set_value('nama')?>" placeholder="Masukkan Nama Lengkap" name="nama">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">

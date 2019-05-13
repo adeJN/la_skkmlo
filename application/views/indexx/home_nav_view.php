@@ -25,7 +25,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#page-top" class="page-scroll">Home</a></li>
             <li><a href="<?php echo site_url('dashboard')?>" class="page-scroll">Halaman DPK</a></li>
-            <li><a href="#portfolio" class="page-scroll">verifikasi</a></li>
+            <li><a href="<?php echo site_url('point')?>" class="page-scroll">verifikasi</a></li>
             <li><a href="#portfolio" class="page-scroll">Kegiatan</a></li>
             <li><a href="<?php echo site_url('home/logout')?>" class="page-scroll">Logout</a></li>
           </ul>

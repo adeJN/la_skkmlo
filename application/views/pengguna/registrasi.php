@@ -18,9 +18,8 @@
                       <th>Nama</th>
                       <th>Jurusan</th>
                       <th>Prodi</th>
-                      <th>Level</th>
                       <th>Status</th>
-					  <th>Actions</th>
+					             <th>Actions</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -31,9 +30,8 @@
                       <th>Nama</th>
                       <th>Jurusan</th>
                       <th>Prodi</th>
-                      <th>Level</th>
                       <th>Status</th>
-					  <th>Actions</th>
+					            <th>Actions</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -43,13 +41,38 @@
                       <td><?php echo $p['username']; ?></td>
                       <td><?php echo $p['nim']; ?></td>
                       <td><?php echo $p['nama_lengkap']; ?></td>
-					  <td><?php echo $p['fk_id_jurusan']; ?></td>
-					  <td><?php echo $p['fk_id_prodi']; ?></td>
-            <td><?php echo $p['fk_level_id']; ?></td>
-            <td><?php echo $p['status']; ?></td>
-					  <td>
-                        <a href="<?php echo site_url('pengguna/edit/'.$p['id_user']); ?>" class="btn btn-info btn-xs" ><span class="fa fa-check"></span> Terima</a> 
-                        <a href="<?php echo site_url('pengguna/remove/'.$p['id_user']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Tolak</a>
+          					  <td><?php echo $p['nama_jurusan']; ?></td>
+          					  <td><?php echo $p['nama_prodi']; ?></td>
+                      <td>
+                        <?php
+                          if($p['status']==1){
+                            echo "Tidak aktif";
+                          }
+                        ?>
+                      </td>
+          					  <td><?php echo form_open('pengguna/terima/'.$p['id_user']); ?>
+                        <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Terima</button>
+                        </form>
+                        <a href="#" href="#" data-toggle="modal" data-target="#tolak" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Tolak</a>
+                        <!-- modal tolak -->
+                        <div class="modal fade" id="tolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="color:red">Peringatan !!!</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">×</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">Anda yakin ingin menolak pengguna ?</div>
+                              <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                <a class="btn btn-danger" href="<?php echo site_url('pengguna/remove/'.$p['id_user']); ?>">Tolak</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- endmodal -->
                        </td>
                     </tr>
                     <?php } ?>

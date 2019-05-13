@@ -9,6 +9,7 @@ class Home extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('jurusan_model');
         $this->load->model('prodi_model');
+        $this->load->model('pengumuman_model');
     }
 
     function index()
@@ -16,8 +17,10 @@ class Home extends CI_Controller{
         if($this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
+        $data['timeline'] = $this->pengumuman_model->get_all_timeline();
+
         $this->load->view('templates/header_home');
-        $this->load->view('indexx/home_view');
+        $this->load->view('indexx/home_view',$data);
         $this->load->view('templates/footer_home');
     }
 
@@ -29,6 +32,8 @@ class Home extends CI_Controller{
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
+
+        $data['timeline'] = $this->pengumuman_model->get_all_timeline();
 
         $this->load->view('templates/header_home');
         $this->load->view('indexx/home_view',$data);
@@ -97,6 +102,9 @@ class Home extends CI_Controller{
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
+
+        $data['timeline'] = $this->pengumuman_model->get_all_timeline();
+        
         $userData = $this->get_userdata();
         if ($userData['fk_level_id'] === '1'){
             $this->load->view('templates/header_home');

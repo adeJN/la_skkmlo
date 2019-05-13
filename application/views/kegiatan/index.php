@@ -55,12 +55,17 @@
                               <?php ; else : ?>
                               <img class="card-img-top" style="height:100px"  src="<?php echo base_url() .'assets/img/default.jpg' ?>" alt="Card image cap">
                               <?php endif; ?>
-                            </td>
+                        </td>
                         <td><?php echo $k->tggl_buat; ?></td>
                         <td><?php echo $k->terbit; ?></td>
                         <td>
+                            <?php if ($this->session->userdata('fk_level_id')=='1' ||$this->session->userdata('fk_level_id')=='3' ||$this->session->userdata('fk_level_id')=='4' ) :?>
                             <a href="<?php echo site_url('kegiatan/edit/'.$k->id_kegiatan); ?>" class="btn btn-info btn-xs"><span class="fa fa-cogs"></span> Edit</a> 
                             <a href="<?php echo site_url('kegiatan/remove/'.$k->id_kegiatan); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                            <?php endif; ?>
+                            <?php if ($this->session->userdata('fk_level_id')=='5') :?>
+                              <a href="<?php echo site_url('kegiatan/edit/'.$k->id_kegiatan); ?>" class="btn btn-info btn-xs"><span class="fa fa-arrow-right"></span> Daftar</a> 
+                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php } ?>

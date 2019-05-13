@@ -58,7 +58,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
-                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin mahasiswa</a>
+                <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin mahasiswa</a>
             <?php endif; ?>
             <?php if ($this->session->userdata('fk_level_id')=='3') :?>
                 <h1>
@@ -66,8 +66,8 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
-                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Daftar Kegiatan</a>
-                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin</a>
+                <a href="<?php echo site_url('kegiatan');?>" class="btn btn-custom btn-lg page-scroll">Daftar Kegiatan</a>
+                <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin</a>
             <?php endif; ?>
             <?php if ($this->session->userdata('fk_level_id')=='4') :?>
                 <h1>
@@ -75,7 +75,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
-                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi Poin</a>
+                <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi Poin</a>
             <?php endif; ?>
             <?php if ($this->session->userdata('fk_level_id')=='5') :?>
                 <h1>
@@ -84,8 +84,8 @@
                 </h1>
                 <p>kumpulkan poin</p>
                 <a href="#about" class="btn btn-custom btn-lg page-scroll">Timeline</a>
-                <a href="<?php echo site_url('dashboard')?>" class="btn btn-custom btn-lg page-scroll">Poin saya</a>
-                <a href="<?php echo site_url('dashboard')?>" class="btn btn-custom btn-lg page-scroll">Kegiatan</a>
+                <a href="<?php echo site_url('mhs')?>" class="btn btn-custom btn-lg page-scroll">Poin saya</a>
+                <a href="<?php echo site_url('kegiatan')?>" class="btn btn-custom btn-lg page-scroll">Kegiatan</a>
             <?php endif; ?>
           <?php endif; ?>
            </div>
@@ -133,13 +133,17 @@
       <?php echo form_close(); ?><br>
       Tidak punya akun, silahkan <a href="<?php echo site_url('home/register')?>">registrasi</a>
     </div>
+    
     <div class="col-md-8 col-md-offset-2" style="margin-top: 60px">
           <div class="portfolio-item" style="height:300px">
-            <div class="hover-bg" style="height:300px"> <a href="<?php echo site_url('assets/img/timeline/timeline.png')?>" title="Timeline" data-lightbox-gallery="gallery1">
+            <?php foreach($timeline as $t){ ?>
+            <div class="hover-bg" style="height:300px"> <a href="<?php echo base_url() .'assets/img/timeline/'. $t->gambar ?>" title="Timeline" data-lightbox-gallery="gallery1">
+              <h2>TIMELINE</h2>
               <div class="hover-text">
                 <h4>Timeline SKKM</h4>
               </div>
-              <img src="<?php echo site_url('assets/img/timeline/timeline.png')?>" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="<?php echo base_url() .'assets/img/timeline/'. $t->gambar ?>" class="img-responsive" alt="Project Tiwtle"> </a> </div>
+              <?php } ?>
           </div>
       </div>
   </div>
@@ -153,13 +157,18 @@
       <hr>
     </div>
       <div class="col-md-8 col-md-offset-2">
+          <?php foreach($timeline as $t){ ?>
           <div class="portfolio-item" style="height:300px">
-            <div class="hover-bg" style="height:300px"> <a href="<?php echo site_url('assets/img/timeline/timeline.png')?>" title="Timeline" data-lightbox-gallery="gallery1">
+            <div class="hover-bg" style="height:300px">
+              <a href="<?php echo site_url('assets/img/timeline/'.$t->gambar)?>" title="Timeline" data-lightbox-gallery="gallery1">
               <div class="hover-text">
                 <h4>Timeline SKKM</h4>
               </div>
-              <img src="<?php echo site_url('assets/img/timeline/timeline.png')?>" class="img-responsive" alt="Project Title"> </a> </div>
+              <img src="<?php echo site_url('assets/img/timeline/'.$t->gambar)?>" class="img-responsive" alt="Project Title"> 
+              </a> 
+            </div>
           </div>
+          <?php } ?>
       </div>
   </div>
 </div>

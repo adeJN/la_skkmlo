@@ -10,6 +10,7 @@ class Point extends CI_Controller{
         parent::__construct();
         $this->load->model('Point_model');
         $this->load->model('user_model');
+        $this->load->model('pengguna_model');
     } 
 
     /*
@@ -17,20 +18,26 @@ class Point extends CI_Controller{
      */
     function index()
     {
+            redirect('pengguna/mahasiswa');
+    }
+
+    function lihat($id_point)
+    {   
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
-        
-        $data['point'] = $this->Point_model->get_all_point();
 
+        $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($id_point);
+
+        $data['point'] = $this->Point_model->get_all_point_by_id($id_point);
         
         $this->load->view('templates/header',$data);
         $this->load->view('point/index', $data);
         $this->load->view('templates/footer');
-    }
+    } 
 
     /*
      * Adding a new point

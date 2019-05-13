@@ -28,12 +28,41 @@ class pengguna extends CI_Controller{
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
-
-        $data['pengguna'] = $this->pengguna_model->get_all_pengguna();
+        
+        if ($this->session->userdata('fk_level_id')=='1'){
+            $data['pengguna'] = $this->pengguna_model->get_all_pengguna_admin();
+        }else if ($this->session->userdata('fk_level_id')=='2'){
+            redirect('pengguna/mahasiswa');
+        }else if ($this->session->userdata('fk_level_id')=='3'){
+            $data['pengguna'] = $this->pengguna_model->get_all_pengguna_mahasiswa();
+        }else if ($this->session->userdata('fk_level_id')=='4'){
+            redirect('pengguna/mahasiswa');
+        }
         
         $this->load->view('templates/header', $data);
-        $this->load->view('pengguna/index', $data);
+        $this->load->view('pengguna/adm', $data);
         $this->load->view('templates/footer');
+    }
+
+    function mahasiswa()
+    {
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home');
+
+        $user_id = $this->session->userdata('id_user');
+        // Dapatkan detail user
+        $data['user'] = $this->user_model->get_user_details($user_id);
+
+        $data['pengguna'] = $this->pengguna_model->get_all_pengguna_mahasiswa();
+        $data['pengguna_verif_him'] = $this->pengguna_model->get_all_verif_him();
+        $data['pengguna_verif_bem'] = $this->pengguna_model->get_all_verif_bem();
+        $data['pengguna_verif_dpk'] = $this->pengguna_model->get_all_verif_dpk();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('pengguna/index', $data);
+            $this->load->view('templates/footer');    
+        
+        
     }
 
     function registrasi()
@@ -51,6 +80,17 @@ class pengguna extends CI_Controller{
         $this->load->view('pengguna/registrasi', $data);
         $this->load->view('templates/footer');
     }
+
+    function terima($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('status' => 0,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
+    }    
 
     /*
      * Adding a new pengguna
@@ -152,6 +192,7 @@ class pengguna extends CI_Controller{
                 'telpon' => $this->input->post('telepon'),
                 'foto' => $post_image,
                 'status' => $this->input->post('status'),
+                'admin' => $this->input->post('admin'),
             );
             // Jika tidak ada error upload gambar, maka kita insert ke database via model Blog 
             if( empty($data['upload_error']) ) {

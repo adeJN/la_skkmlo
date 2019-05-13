@@ -96,6 +96,17 @@
 								<input type="file" class="form-control" name="thumbnail">
 							</div>
 						</div>
+
+						<div class="col-md-6">
+							<label for="terbit" class="control-label">admin</label>
+							<div class="form-group">
+								<select class="form-control" name="admin">
+									<option>Pilih</option>
+									<option value="0">Ya</option>
+									<option value="1">Tidak</option>
+								</select>
+							</div>
+						</div>
 					</div>
                   </div>
                   <br>

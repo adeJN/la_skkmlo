@@ -27,14 +27,27 @@ class Point_model extends CI_Model
         $this->db->order_by('id_point', 'desc');
         return $this->db->get('point')->result_array();
     }
+
+    function get_all_point_by_id($id_point)
+    {
+        $this->db->join('pengguna', 'pengguna.id_user = point.fk_id_user');
+        $this->db->join('kategori', 'kategori.id_kategori_point = point.fk_id_kategori');
+
+        $this->db->order_by('id_point', 'desc');
+        // return $this->db->get('point')->result_array();
+        $query = $this->db->get_where('point',array('fk_id_user'=>$id_point));
+            // Return dalam bentuk object
+        return $query->result();
+    }
         
     /*
      * function to add new point
      */
-    function add_point($params)
+    function add_point($data)
     {
-        $this->db->insert('point',$params);
-        return $this->db->insert_id();
+        // $this->db->insert('kegiatan',$params);
+        // return $this->db->insert_id();
+        return $this->db->insert('point', $data);
     }
     
     /*

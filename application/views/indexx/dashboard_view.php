@@ -22,7 +22,7 @@
 
           <?php if($this->session->userdata('logged_in')) : ?>
 
-            <?php if ($this->session->userdata('fk_level_id')=='1') :?>
+            <?php if ($this->session->userdata('fk_level_id')=='1'||$this->session->userdata('fk_level_id')=='3') :?>
             <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
@@ -186,23 +186,36 @@
               </div>
             </div>
             <!-- pengumuman -->
-              <div class="card shadow mb-4 col-xl-12">
-                <div class="card-header py-3 ">
-                  <h6 class="m-0 font-weight-bold text-primary">Pengumuman</h6>
-                </div>
-                <div class="card-body">
-                  <p>!!! PENGUMUMAAN !!!</p>
-                  <p class="mb-0">Ada sesuatu yang baru.</p>
-                </div>
-              </div>
-            <!-- timeline -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Timeline</h6>
+                  <h3 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-fw fa-bullhorn"></i>
+                    Pengumuman
+                    <?php foreach($pengumuman as $p){ ?>
+                  </h3>
+                </div>
+                <div class="card-body">
+                  <p class="bg-gray-200 p-3 m-0 text-center"><b><?php echo $p->judul;?></b></p><br>
+                  <p><?php echo $p->isi;?></p>
+                  <?php } ?>
+                </div>
+              </div>
+              <!-- timeline -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h3 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-fw fa-calendar"></i>
+                    Timeline
+                    <?php foreach($timeline as $p){ ?>
+                  </h3>
                 </div>
                 <div class="card-body">
                   <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?php echo site_url('assets/img/undraw_posting_photo.svg')?>" alt="">
+                    <p class="bg-gray-200 p-3 m-0 text-center"><b><?php echo $p->judul;?></b></p><br>
+                    <?php if( $p->gambar ) : ?>
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" src="<?php echo base_url() .'assets/img/timeline/'. $p->gambar ?>" alt="Card image cap" width=500>
+                    <?php endif; ?>
+                    <?php } ?>
                   </div>
                 </div>
               </div>
