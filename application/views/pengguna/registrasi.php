@@ -50,29 +50,11 @@
                           }
                         ?>
                       </td>
-          					  <td><?php echo form_open('pengguna/terima/'.$p['id_user']); ?>
+          					  <td><center><?php echo form_open('pengguna/terima/'.$p['id_user']); ?>
                         <button type="submit" class="btn btn-success"><span class="fa fa-check"></span> Terima</button>
                         </form>
-                        <a href="#" href="#" data-toggle="modal" data-target="#tolak" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Tolak</a>
-                        <!-- modal tolak -->
-                        <div class="modal fade" id="tolak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel" style="color:red">Peringatan !!!</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">×</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">Anda yakin ingin menolak pengguna ?</div>
-                              <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                                <a class="btn btn-danger" href="<?php echo site_url('pengguna/remove/'.$p['id_user']); ?>">Tolak</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- endmodal -->
+                        <hr style="margin: 2px">
+                        <a href="<?php echo site_url('pengguna/remove/'.$p['id_user']); ?>" onClick="return confirm('Apakah anda yakin ingin menolak mahasiswa ini?')" class="btn btn-danger btn-xs"><span class="fa fa-times"></span> Tolak</a>
                        </td>
                     </tr>
                     <?php } ?>

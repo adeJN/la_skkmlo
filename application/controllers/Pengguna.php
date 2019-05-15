@@ -15,6 +15,7 @@ class pengguna extends CI_Controller{
         $this->load->model('jurusan_model');
         $this->load->model('level_model');
         $this->load->model('prodi_model');
+        $this->load->model('point_model');
     } 
 
     /*
@@ -53,10 +54,17 @@ class pengguna extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
-        $data['pengguna'] = $this->pengguna_model->get_all_pengguna_mahasiswa();
-        $data['pengguna_verif_him'] = $this->pengguna_model->get_all_verif_him();
-        $data['pengguna_verif_bem'] = $this->pengguna_model->get_all_verif_bem();
-        $data['pengguna_verif_dpk'] = $this->pengguna_model->get_all_verif_dpk();
+        if ($this->session->userdata('fk_level_id')=='1'){
+            $data['pengguna'] = $this->pengguna_model->get_all_pengguna_mahasiswa();
+        }else if ($this->session->userdata('fk_level_id')=='2'){
+            $data['pengguna'] = $this->pengguna_model->get_all_verif_dpk();
+        }else if ($this->session->userdata('fk_level_id')=='3'){
+            $data['pengguna'] = $this->pengguna_model->get_all_verif_bem();
+        }else if ($this->session->userdata('fk_level_id')=='4'){
+            $data['pengguna'] = $this->pengguna_model->get_all_verif_him();
+        }else if ($this->session->userdata('fk_level_id')=='5'){
+            redirect('mhs');
+        }
 
             $this->load->view('templates/header', $data);
             $this->load->view('pengguna/index', $data);
@@ -85,7 +93,7 @@ class pengguna extends CI_Controller{
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
-        $post_data = array('status' => 0,
+        $post_data = array('status' => 0,'verif_him'=>1,
             );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
@@ -172,7 +180,7 @@ class pengguna extends CI_Controller{
                 }
             } else {
                 // User tidak upload gambar, jadi kita kosongkan field ini
-                $post_image = 'default.jpg';
+                $post_image = '';
             }
             // Memformat slug sebagai alamat URL, 
             // Misal judul: "Hello World", kita format menjadi "hello-world"
@@ -333,16 +341,6 @@ class pengguna extends CI_Controller{
     function remove($id)
     {
         $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($id);
-
-        // // check if the pengguna exists before trying to delete it
-        // if(isset($pengguna['id_user']))
-        // {
-        //     $this->pengguna_model->delete_pengguna($id);
-        //     redirect('pengguna/index');
-        // }
-        // else
-        //     show_error('The pengguna you are trying to delete does not exist.');
-
         if ( empty($id) || !$data['pengguna'] ) show_404();
         // Kita simpan dulu nama file yang lama
         $old_image = $data['pengguna']->foto;

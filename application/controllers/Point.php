@@ -21,7 +21,7 @@ class Point extends CI_Controller{
             redirect('pengguna/mahasiswa');
     }
 
-    function lihat($id_point)
+    function lihat($id_user)
     {   
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
@@ -30,14 +30,132 @@ class Point extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
-        $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($id_point);
+        $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($id_user);
+        $data['point'] = $this->Point_model->get_all_point_by_id($id_user);
 
-        $data['point'] = $this->Point_model->get_all_point_by_id($id_point);
+        $data['total_point'] = $this->Point_model->get_total_point($id_user);
+        $data['total_point_him'] = $this->Point_model->get_total_point_him($id_user);
+        $data['total_point_bem'] = $this->Point_model->get_total_point_bem($id_user);
+        $data['total_point_dpk'] = $this->Point_model->get_total_point_dpk($id_user);
         
         $this->load->view('templates/header',$data);
         $this->load->view('point/index', $data);
         $this->load->view('templates/footer');
+    }
+
+    function krm_bem($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_him_sdh'=>1 ,'verif_bem'=>1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
     } 
+    function krm_dpk($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_bem_sdh'=>1 ,'verif_dpk'=>1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
+    }
+
+    function dpk_setuju($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_all'=>1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
+    } 
+
+    function verif_himp($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_himp' => 1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+    function no_verif_himp($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+        
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_himp' => 0,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+
+    function verif_bem($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_bemm' => 1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+    function no_verif_bem($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+        
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_bemm' => 0,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+
+    function verif_dpk($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_dpka' => 1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+    function no_verif_dpk($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+        
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_dpka' => 0,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $id);
+                redirect('point/lihat/'.$user_id);
+    }
+
 
     /*
      * Adding a new point
@@ -101,18 +219,41 @@ class Point extends CI_Controller{
     /*
      * Deleting point
      */
-    function remove($id_point)
+    function remove($id)
     {
-        $point = $this->Point_model->get_point($id_point);
+        // $point = $this->Point_model->get_point($id_point);
 
-        // check if the point exists before trying to delete it
-        if(isset($point['id_point']))
-        {
-            $this->Point_model->delete_point($id_point);
-            redirect('point/index');
+        // // check if the point exists before trying to delete it
+        // if(isset($point['id_point']))
+        // {
+        //     $this->Point_model->delete_point($id_point);
+        //     redirect('point/index');
+        // }
+        // else
+        //     show_error('The point you are trying to delete does not exist.');
+
+        $data = $this->Point_model->get_point($id);
+        $user_id=$data['fk_id_user'];
+        if ( empty($id) ) show_404();
+        // Kita simpan dulu nama file yang lama
+        $old_image = $data['foto_sertifikat'];
+        // Hapus file image yang lama jika ada
+        if( !empty($old_image) ) {
+            if ( file_exists( './assets/img/point/'.$old_image )){
+                unlink( './assets/img/point/'.$old_image);
+            } else {
+                echo 'File tidak ditemukan.';
+            }
         }
-        else
-            show_error('The point you are trying to delete does not exist.');
+        // Hapus artikel sesuai id-nya
+        if( ! $this->Point_model->delete_point($id) )
+        {
+            // Jika gagal, tampilkan failnya
+            echo "gagal menghapus";
+        } else {
+            // Ok, sudah terhapus
+            redirect('point/lihat/'.$user_id);
+        }
     }
     
 }

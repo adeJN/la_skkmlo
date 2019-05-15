@@ -58,6 +58,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
+                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Beranda</a>
                 <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin mahasiswa</a>
             <?php endif; ?>
             <?php if ($this->session->userdata('fk_level_id')=='3') :?>
@@ -66,6 +67,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
+                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Beranda</a>
                 <a href="<?php echo site_url('kegiatan');?>" class="btn btn-custom btn-lg page-scroll">Daftar Kegiatan</a>
                 <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi poin</a>
             <?php endif; ?>
@@ -75,6 +77,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>Verifikasi data mahasiswa</p>
+                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Beranda</a>
                 <a href="<?php echo site_url('point');?>" class="btn btn-custom btn-lg page-scroll">Verifikasi Poin</a>
             <?php endif; ?>
             <?php if ($this->session->userdata('fk_level_id')=='5') :?>
@@ -83,6 +86,7 @@
                   <font style="color:#14B9D5"><?php echo ( $user->nama_lengkap );?></font>
                 </h1>
                 <p>kumpulkan poin</p>
+                <a href="<?php echo site_url('dashboard');?>" class="btn btn-custom btn-lg page-scroll">Beranda</a>
                 <a href="#about" class="btn btn-custom btn-lg page-scroll">Timeline</a>
                 <a href="<?php echo site_url('mhs')?>" class="btn btn-custom btn-lg page-scroll">Poin saya</a>
                 <a href="<?php echo site_url('kegiatan')?>" class="btn btn-custom btn-lg page-scroll">Kegiatan</a>

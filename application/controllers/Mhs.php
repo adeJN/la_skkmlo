@@ -19,9 +19,6 @@ class Mhs extends CI_Controller{
         $this->load->model('pengguna_model');
     } 
 
-    /*
-     * Listing of prodi
-     */
     function index()
     {
         if(!$this->session->userdata('logged_in')) 
@@ -54,7 +51,7 @@ class Mhs extends CI_Controller{
         $this->form_validation->set_rules('no_sertifikat', 'no_sertifikat', 'required|is_unique[point.no_sertifikat]',
             array(
                 'required'      => 'Isi %s terlebih dahulu.',
-                'is_unique'     => 'Tipe <strong>' .$this->input->post('nama_kegiatan'). '</strong> sudah ada bosque.'
+                'is_unique'     => 'nama <strong>' .$this->input->post('no_sertifikat'). '</strong> sudah ada bosque.'
             ));
         // Cek apakah input valid atau tidak
         if ($this->form_validation->run() === FALSE)

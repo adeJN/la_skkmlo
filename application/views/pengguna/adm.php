@@ -53,7 +53,7 @@
                       </td>
 					            <td> 
                         <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" class="btn btn-info btn-xs" ><span class="fa fa-cogs"></span> Edit</a> 
-                        <a href="<?php echo site_url('pengguna/remove/'.$p->id_user); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                        <a href="<?php echo site_url('pengguna/remove/'.$p->id_user); ?>" onClick="return confirm('Hapus popengguna?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                        </td>
                     </tr>
                     <?php } ?>

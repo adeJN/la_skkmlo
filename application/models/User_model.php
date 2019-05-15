@@ -37,7 +37,7 @@ class User_model extends CI_Model
             'nama_lengkap' => $this->input->post('nama'),
             'fk_id_jurusan' => $this->input->post('id_jurusan'),
             'fk_id_prodi' => $this->input->post('id_prodi'),
-            'foto' => 'default.jpg',
+            'foto' => '',
             'status' => 1,
             'admin' => 1,
         );
