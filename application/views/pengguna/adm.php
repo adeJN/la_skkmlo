@@ -16,8 +16,7 @@
                       <th>Username</th>
                       <th>Nama</th>
                       <th>Jurusan</th>
-                      <th>Telepon</th>
-                      <th>Jabatan</th>
+                      <th>Peran</th>
                       <th>Status</th>
 					  <th>Actions</th>
                     </tr>
@@ -28,8 +27,7 @@
                       <th>Username</th>
                       <th>Nama</th>
                       <th>Jurusan</th>
-                      <th>Telepon</th>
-                      <th>Jabatan</th>
+                      <th>Peran</th>
                       <th>Status</th>
 					  <th>Actions</th>
                     </tr>
@@ -40,8 +38,7 @@
                       <td><?php echo $p->id_user; ?></td>
                       <td><?php echo $p->username; ?></td>
                       <td><?php echo $p->nama_lengkap; ?></td>
-          					  <td><?php echo $p->nama_prodi; ?></td>
-          					  <td><?php echo $p->telpon; ?></td>
+          					  <td><?php echo $p->nama_jurusan; ?></td>
                       <td><?php echo $p->nama_level; ?></td>
           					  <td>
                         <?php if($p->status==0){
@@ -53,7 +50,7 @@
                       </td>
 					            <td> 
                         <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" class="btn btn-info btn-xs" ><span class="fa fa-cogs"></span> Edit</a> 
-                        <a href="<?php echo site_url('pengguna/remove/'.$p->id_user); ?>" onClick="return confirm('Hapus popengguna?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                        <a href="<?php echo site_url('pengguna/remove/'.$p->id_user); ?>" onClick="return confirm('Hapus pengguna?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                        </td>
                     </tr>
                     <?php } ?>

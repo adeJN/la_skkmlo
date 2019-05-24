@@ -38,7 +38,7 @@
   <div class="intro">
     <div class="container">
       <div class="row">
-        <div class="intro-text">
+        <div class="intro-text" style="">
           <?php if(!$this->session->userdata('logged_in')) : ?>
               <h1>SKKM (Satuan Kredit Kegiatan Mahasiswa)</h1>
               <p>kumpulkan poinmu sekarang</p>

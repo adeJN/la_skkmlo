@@ -438,6 +438,11 @@
               </div>
             </div>
           </div>
+            <div class="card shadow mb-4">
+              <?php if($total_point>0){if($total_point_dpk==$total_point){ ?>
+                <button class="btn btn-success btn-xs"><i class="fas fa-fw fa-print"></i> Cetak form</button>
+              <?php } }?>
+            </div>
           <!-- pengumuman -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">

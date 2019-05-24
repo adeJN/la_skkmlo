@@ -11,7 +11,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr style="background-color:#AFEEEE;">
                         <th>Id</th>
                         <th>Nama</th>
                         <th>Kategori</th>
@@ -25,7 +25,7 @@
                     </tr>
                   </thead>
                   <tfoot>
-                    <tr>
+                    <tr style="background-color:#AFEEEE;">
                         <th>Id</th>
                         <th>Nama</th>
                         <th>Kategori</th>
@@ -43,7 +43,7 @@
                     <tr>
                         <td><?php echo $k->id_kegiatan; ?></td>
                         <td><?php echo $k->nama_kegiatan; ?></td>
-                        <td><?php echo $k->nama_kategori; ?></td>
+                        <td><?php echo $k->tingkat_kegiatan; ?></td>
                         <td><?php echo $k->nama_level; ?></td>
                         <td><?php echo $k->tggl_kegiatan; ?></td>
                         <td><?php echo $k->kuota; ?></td>

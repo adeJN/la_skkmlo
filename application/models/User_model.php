@@ -84,6 +84,8 @@ class User_model extends CI_Model
     function get_user_details($user_id)
     {
         $this->db->join('level', 'level.id_level = pengguna.fk_level_id', 'left');
+        $this->db->join('jurusan', 'jurusan.id_jurusan = pengguna.fk_id_jurusan');
+        $this->db->join('prodi', 'prodi.id_prodi = pengguna.fk_id_prodi');
         $this->db->where('id_user', $user_id);
 
         $result = $this->db->get('pengguna');

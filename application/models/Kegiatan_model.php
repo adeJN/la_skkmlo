@@ -14,12 +14,6 @@ class Kegiatan_model extends CI_Model
     public function get_kegiatan_by_id($id)
         {
              // Inner Join dengan table brand
-            $this->db->select ( '
-                kegiatan.*, 
-                kategori.id_kategori_point as as_brand_id, 
-                kategori.nama_kategori,
-                kategori.point,
-            ' );
             $this->db->join('kategori', 'kategori.id_kategori_point = kegiatan.fk_kategori_kegiatan');
 
             $query = $this->db->get_where('kegiatan', array('kegiatan.id_kegiatan' => $id));

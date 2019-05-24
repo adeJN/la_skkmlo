@@ -28,6 +28,65 @@ class Point_model extends CI_Model
         return $this->db->get('point')->result_array();
     }
 
+    public function jumlahpoin($id){
+       $this->db->join('kategori', 'kategori.kode_kategori = point.fk_kode_kategori');
+       $this->db->select_sum('point');
+       $query = $this->db->get_where('point', array('fk_id_user' => $id));
+       if($query->num_rows()>0)
+       {
+         return $query->row()->point;
+       }
+       else
+       {
+         return 0;
+       }
+    }
+
+    public function jumlahpoinhim($id){
+       $this->db->join('kategori', 'kategori.kode_kategori = point.fk_kode_kategori');
+       $this->db->join('pengguna', 'pengguna.id_user = point.fk_id_user');
+       $this->db->select_sum('point');
+       $query = $this->db->get_where('point', array('fk_id_user' => $id,'verif_himp'=>1,'verif_him_sdh'=>1));
+       if($query->num_rows()>0)
+       {
+         return $query->row()->point;
+       }
+       else
+       {
+         return 0;
+       }
+    }
+
+    public function jumlahpoinbem($id){
+       $this->db->join('kategori', 'kategori.kode_kategori = point.fk_kode_kategori');
+       $this->db->join('pengguna', 'pengguna.id_user = point.fk_id_user');
+       $this->db->select_sum('point');
+       $query = $this->db->get_where('point', array('fk_id_user' => $id,'verif_bemm'=>1,'verif_bem_sdh'=>1));
+       if($query->num_rows()>0)
+       {
+         return $query->row()->point;
+       }
+       else
+       {
+         return 0;
+       }
+    }
+
+    public function jumlahpoindpk($id){
+       $this->db->join('kategori', 'kategori.kode_kategori = point.fk_kode_kategori');
+       $this->db->join('pengguna', 'pengguna.id_user = point.fk_id_user');
+       $this->db->select_sum('point');
+       $query = $this->db->get_where('point', array('fk_id_user' => $id,'verif_dpka'=>1,'verif_all'=>1));
+       if($query->num_rows()>0)
+       {
+         return $query->row()->point;
+       }
+       else
+       {
+         return 0;
+       }
+    }
+
     public function get_total_point($id){
             $query = $this->db->get_where('point', array('fk_id_user' => $id));
             if($query->num_rows()>0)
@@ -79,7 +138,8 @@ class Point_model extends CI_Model
     function get_all_point_by_id($id_user)
     {
         $this->db->join('pengguna', 'pengguna.id_user = point.fk_id_user');
-        $this->db->join('kategori', 'kategori.id_kategori_point = point.fk_id_kategori');
+        $this->db->join('kategori_induk', 'kategori_induk.kode_kategori_induk = point.fk_kode_kategori_induk');
+        $this->db->join('kategori', 'kategori.kode_kategori = point.fk_kode_kategori');
 
         $this->db->order_by('id_point', 'desc');
         // return $this->db->get('point')->result_array();
@@ -98,21 +158,39 @@ class Point_model extends CI_Model
         return $this->db->insert('point', $data);
     }
     
-    /*
-     * function to update point
-     */
-    // function update_point($id_point,$params)
-    // {
-    //     $this->db->where('id_point',$id_point);
-    //     return $this->db->update('point',$params);
-    // }
 
     function update_point($data,$id)
     {
         // $this->db->where('id_user',$id_user);
         // return $this->db->update('pengguna',$params);
+
         if ( !empty($data) && !empty($id) ){
             $update = $this->db->update( 'point', $data, array('id_point'=>$id) );
+            // mencetak select bawah
+            // print_r($this->db->last_query());
+            return $update ? true : false;
+        } else {
+            return false;
+        }
+    }
+
+    function update_all_point_mah($data,$id)
+    {
+        // $this->db->where('id_user',$id_user);
+        // return $this->db->update('pengguna',$params);
+        if ( !empty($data) && !empty($id) ){
+            $update = $this->db->update( 'pengguna', $data, array('id_user'=>$id) );
+            return $update ? true : false;
+        } else {
+            return false;
+        }
+    }
+    function update_all_point_mah_b($data,$id)
+    {
+        // $this->db->where('id_user',$id_user);
+        // return $this->db->update('pengguna',$params);
+        if ( !empty($data) && !empty($id) ){
+            $update = $this->db->update( 'point', $data, array('fk_id_user'=>$id) );
             return $update ? true : false;
         } else {
             return false;

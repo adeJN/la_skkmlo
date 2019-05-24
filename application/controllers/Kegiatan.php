@@ -13,6 +13,7 @@ class Kegiatan extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('Kegiatan_model');
         $this->load->model('kategori_model');
+        $this->load->model('kategori_induk_model');
     } 
 
     /*
@@ -46,14 +47,18 @@ class Kegiatan extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
+        $data['kategori_induk'] = $this->kategori_induk_model->generate_kategori_induk_dropdown();
+        $data['all_kategori_induk_wajib'] = $this->kategori_induk_model->get_all_kategori_induk_wajib();
+        $data['all_kategori_induk_tidak_wajib'] = $this->kategori_induk_model->get_all_kategori_induk_tidak_wajib();
+        $data['all_kategori_induk'] = $this->kategori_induk_model->get_all_kategori_induk();
+
         $data['kategori'] = $this->kategori_model->generate_kategori_dropdown();
 
         $this->load->helper('form');
         // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
-        $this->form_validation->set_rules('nama_kegiatan', 'nama_kegiatan', 'required|is_unique[kegiatan.nama_kegiatan]',
+        $this->form_validation->set_rules('nama_kegiatan', 'nama_kegiatan', 'required',
             array(
                 'required'      => 'Isi %s terlebih dahulu.',
-                'is_unique'     => 'Tipe <strong>' .$this->input->post('nama_kegiatan'). '</strong> sudah ada bosque.'
             ));
         // Cek apakah input valid atau tidak
         if ($this->form_validation->run() === FALSE)
@@ -97,7 +102,8 @@ class Kegiatan extends CI_Controller{
             // http://localhost/ci3-course/blog/hello-world
             $post_data = array(
                 'nama_kegiatan' => $this->input->post('nama_kegiatan'),
-                'fk_kategori_kegiatan' => $this->input->post('fk_kategori_kegiatan'),
+                'fk_kategori_induk_kegiatan' => $this->input->post('kode_kategori_induk'),
+                'fk_kategori_kegiatan' => $this->input->post('kode_kategori'),
                 'dibuat' => $this->input->post('dibuat'),
                 'tggl_kegiatan' => $this->input->post('tggl_kegiatan'),
                 'kuota' => $this->input->post('kuota'),

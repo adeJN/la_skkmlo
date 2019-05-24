@@ -13,7 +13,8 @@
                       <thead>
                         <tr>
                             <th>Id Kategori Point</th>
-                            <th>Nama Kategori</th>
+                            <th>Jenis Kegiatan</th>
+                            <th>Tingkat Kegiatan</th>
                             <th>Point</th>
                             <th>Actions</th>
                         </tr>
@@ -21,7 +22,8 @@
                       <tfoot>
                         <tr>
                             <th>Id Kategori Point</th>
-                            <th>Nama Kategori</th>
+                            <th>Jenis Kegiatan</th>
+                            <th>Tingkat Kegiatan</th>
                             <th>Point</th>
                             <th>Actions</th>
                         </tr>
@@ -30,10 +32,11 @@
                         <?php foreach($kategori as $k){ ?>
                         <tr>
                             <td><?php echo $k['id_kategori_point']; ?></td>
-                            <td><?php echo $k['nama_kategori']; ?></td>
+                            <td><?php echo $k['jenis_kegiatan']; ?></td>
+                            <td><?php echo $k['tingkat_kegiatan']; ?></td>
                             <td><?php echo $k['point']; ?></td>
                             <td>
-                                <a href="<?php echo site_url('kategori/edit/'.$k['id_kategori_point']); ?>" class="btn btn-info btn-xs"><span class="fa fa-cogs"></span> Edit</a> 
+                                <!-- <a href="<?php echo site_url('kategori/edit/'.$k['id_kategori_point']); ?>" class="btn btn-info btn-xs"><span class="fa fa-cogs"></span> Edit</a> --> 
                                 <a href="<?php echo site_url('kategori/remove/'.$k['id_kategori_point']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                             </td>
                         </tr>

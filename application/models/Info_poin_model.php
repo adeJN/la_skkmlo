@@ -25,8 +25,8 @@ class Info_poin_model extends CI_Model
      */
     function get_all_info_poin()
     {
-        $this->db->order_by('kode_poin', 'desc');
-        return $this->db->get('info_poin')->result_array();
+        $this->db->order_by('kode_kategori', 'desc');
+        return $this->db->get('kategori')->result_array();
     }
         
     /*

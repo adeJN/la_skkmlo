@@ -60,14 +60,26 @@
           </div>
         </div>
       </li>
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-      <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
          <a class="nav-link" href="<?php echo site_url('tatacarainfo');?>" >
           <i class="fas fa-fw fa-info"></i>
           <span>Tata Cara dan info </span>
         </a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Kategori_induk" aria-expanded="true" aria-controls="Kategori_induk">
+          <i class="fas fa-fw fa-sitemap"></i>
+          <span>Kategori induk</span>
+        </a>
+        <div id="Kategori_induk" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Pilih:</h6>
+            <a class="collapse-item" href="<?php echo site_url('Kategori_induk/add');?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
+            <a class="collapse-item" href="<?php echo site_url('Kategori_induk');?>"><i class="fas fa-fw fa-bars"></i> List</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">

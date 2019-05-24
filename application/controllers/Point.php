@@ -37,6 +37,11 @@ class Point extends CI_Controller{
         $data['total_point_him'] = $this->Point_model->get_total_point_him($id_user);
         $data['total_point_bem'] = $this->Point_model->get_total_point_bem($id_user);
         $data['total_point_dpk'] = $this->Point_model->get_total_point_dpk($id_user);
+
+        $data['total_point_mah'] = $this->Point_model->jumlahpoin($id_user);
+        $data['total_point_mah_drhim'] = $this->Point_model->jumlahpoinhim($id_user);
+        $data['total_point_mah_drbem'] = $this->Point_model->jumlahpoinbem($id_user);
+        $data['total_point_mah_drdpk'] = $this->Point_model->jumlahpoindpk($id_user);
         
         $this->load->view('templates/header',$data);
         $this->load->view('point/index', $data);
@@ -53,6 +58,16 @@ class Point extends CI_Controller{
             $this->pengguna_model->update_pengguna($post_data, $id);
                 redirect('pengguna');
     } 
+    function btl_krm_bem($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_him_sdh'=>0 ,'verif_bem'=>0,'verif_bem_sdh'=>0 ,'verif_dpk'=>0,'verif_all'=>0
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
+    } 
     function krm_dpk($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
@@ -61,14 +76,34 @@ class Point extends CI_Controller{
             );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
-                redirect('pengguna');
+                redirect('pengguna/mahasiswa');
     }
+    function btl_krm_dpk($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_bem_sdh'=>0 ,'verif_dpk'=>0,'verif_all'=>0
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna/mahasiswa');
+    } 
 
     function dpk_setuju($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
         $post_data = array('verif_all'=>1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->pengguna_model->update_pengguna($post_data, $id);
+                redirect('pengguna');
+    } 
+    function btl_dpk_setuju($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_all'=>0,
             );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
@@ -157,31 +192,49 @@ class Point extends CI_Controller{
     }
 
 
-    /*
-     * Adding a new point
-     */
-    function add()
-    {   
-        if(isset($_POST) && count($_POST) > 0)     
-        {   
-            $params = array(
-				'fk_id_user' => $this->input->post('fk_id_user'),
-				'nama_sertifikat' => $this->input->post('nama_sertifikat'),
-				'foto_sertifikat' => $this->input->post('foto_sertifikat'),
-				'fk_id_kategori' => $this->input->post('fk_id_kategori'),
-				'angka_kredit' => $this->input->post('angka_kredit'),
+    function verif_all($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $idList = $_GET['id_list'];
+
+        //print_r($id);
+        
+        // $user = $this->Point_model->get_point($id);
+        // $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_dpka' => 1,
             );
-            
-            $point_id = $this->Point_model->add_point($params);
-            redirect('point/index');
-        }
-        else
-        {            
-            $this->load->view('themes/header');
-            $this->load->view('pengguna/add');
-            $this->load->view('themes/footer');
-        }
-    }  
+
+        foreach($idList as $idTunggal)
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_point($post_data, $idTunggal);
+    }
+
+    function verif_all_satu_mah($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+        
+        $user = $this->Point_model->get_point($id);
+        $user_id=$user['fk_id_user'];
+
+        $post_data = array('verif_dpk' => 1,'verif_all' => 1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_all_point_mah($post_data, $id);
+                redirect('point/update_point/'.$id);
+    }
+    function update_point($id){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $post_data = array('verif_dpka' => 1,
+            );
+            // Update kategori sesuai post_data dan id-nya
+            $this->Point_model->update_all_point_mah_b($post_data, $id);
+                redirect('pengguna');
+    }
+
 
     /*
      * Editing a point

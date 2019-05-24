@@ -1,5 +1,4 @@
-<?php
- 
+<?php 
 class Tatacarainfo extends CI_Controller{
     function __construct()
     {

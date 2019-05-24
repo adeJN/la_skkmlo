@@ -16,6 +16,7 @@ class Mhs extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('point_model');
         $this->load->model('kategori_model');
+        $this->load->model('kategori_induk_model');
         $this->load->model('pengguna_model');
     } 
 
@@ -29,10 +30,24 @@ class Mhs extends CI_Controller{
 
         $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($user_id);
         $data['point'] = $this->point_model->get_all_point_by_id($user_id);
+
+        $data['total_point'] = $this->point_model->get_total_point($user_id);
+        $data['total_point_dpk'] = $this->point_model->get_total_point_dpk($user_id);
+
+        $data['total_point_mah'] = $this->point_model->jumlahpoin($user_id);
+        $data['total_point_mah_drhim'] = $this->point_model->jumlahpoinhim($user_id);
+        $data['total_point_mah_drbem'] = $this->point_model->jumlahpoinbem($user_id);
+        $data['total_point_mah_drdpk'] = $this->point_model->jumlahpoindpk($user_id);
         
         $this->load->view('templates/header',$data);
         $this->load->view('point/index', $data);
         $this->load->view('templates/footer');
+    }
+
+    function get_kategori(){
+        $id=$this->input->post('id');
+        $data=$this->kategori_induk_model->ambil_kategori($id);
+        echo json_encode($data);
     }
 
     function tp()
@@ -44,11 +59,15 @@ class Mhs extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
-        $data['kategori'] = $this->kategori_model->generate_kategori_dropdown();
+        $data['kategori_induk'] = $this->kategori_induk_model->generate_kategori_induk_dropdown();
+        $data['all_kategori_induk_wajib'] = $this->kategori_induk_model->get_all_kategori_induk_wajib();
+        $data['all_kategori_induk_tidak_wajib'] = $this->kategori_induk_model->get_all_kategori_induk_tidak_wajib();
+        $data['all_kategori_induk'] = $this->kategori_induk_model->get_all_kategori_induk();
+        // $data['kategori'] = $this->kategori_model->generate_kategori_dropdown();
 
         $this->load->helper('form');
         // Kita validasi input sederhana, sila cek http://localhost/ci3/user_guide/libraries/form_validation.html
-        $this->form_validation->set_rules('no_sertifikat', 'no_sertifikat', 'required|is_unique[point.no_sertifikat]',
+        $this->form_validation->set_rules('no_sertifikat', 'no sertifikat', 'required|is_unique[point.no_sertifikat]',
             array(
                 'required'      => 'Isi %s terlebih dahulu.',
                 'is_unique'     => 'nama <strong>' .$this->input->post('no_sertifikat'). '</strong> sudah ada bosque.'
@@ -97,7 +116,8 @@ class Mhs extends CI_Controller{
                 'fk_id_user' => $this->input->post('id_user'),
                 'no_sertifikat' => $this->input->post('no_sertifikat'),
                 'nama_kegiatan' => $this->input->post('nama_kegiatan'),
-                'fk_id_kategori' => $this->input->post('fk_kategori_kegiatan'),
+                'fk_kode_kategori_induk' => $this->input->post('kode_kategori_induk'),
+                'fk_kode_kategori' => $this->input->post('kode_kategori'),
                 'foto_sertifikat' => $post_image,
             );
             // Jika tidak ada error upload gambar, maka kita insert ke database via model Blog 

@@ -35,6 +35,7 @@ class Prodi_model extends CI_Model
      */
     function get_all_prodi()
     {
+        $this->db->join('jurusan', 'jurusan.id_jurusan = prodi.fk_id_jurusan');
         $this->db->order_by('id_prodi', 'desc');
         return $this->db->get('prodi')->result_array();
     }

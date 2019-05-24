@@ -24,9 +24,29 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<label for="fk_kategori_kegiatan" class="control-label">Kategori Kegiatan</label>
+							<label for="terbit" class="control-label">Jenis Kegiatan</label>
 							<div class="form-group">
-								<?php echo form_dropdown('fk_kategori_kegiatan', $kategori, set_value('id_kategori_point'), 'class="form-control" required' ); ?>
+								<select class="form-control" id="kategori" name="kode_kategori_induk" required>
+                            	<option></option>
+                            	<option disabled="disabled" style="font-style:italic;">--WAJIB--</option>
+								<?php foreach($all_kategori_induk_wajib->result() as $row):?>
+	                    		<option value="<?php echo $row->kode_kategori_induk;?>"><?php echo $row->jenis_kegiatan;?></option>
+	                    		<?php endforeach;?>
+                            	<option disabled="disabled" style="font-style:italic;">--TIDAK WAJIB--</option>
+								<?php foreach($all_kategori_induk_tidak_wajib->result() as $row):?>
+	                    		<option value="<?php echo $row->kode_kategori_induk;?>"><?php echo $row->jenis_kegiatan;?></option>
+	                    		<?php endforeach;?>
+                        		</select>
+								<div class="invalid-feedback">Isi jenis kegiatan</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="fk_kategori_kegiatan" class="control-label">Kategori Kegiatan (*setelah jenis kegiatan)</label>
+							<div class="form-group">
+								<select class='subkategori form-control' id='subkategori' name="kode_kategori" required="">
+									<option></option>
+								</select>
+								<div class="invalid-feedback">Isi kategori setelah jenis kegiatan</div>
 							</div>
 						</div>
 						<div class="col-md-6">

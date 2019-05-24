@@ -53,6 +53,9 @@ class pengguna extends CI_Controller{
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
+        $userr = $data['user']->nama_jurusan;
+
+        // print_r($userr);
 
         if ($this->session->userdata('fk_level_id')=='1'){
             $data['pengguna'] = $this->pengguna_model->get_all_pengguna_mahasiswa();
@@ -68,9 +71,7 @@ class pengguna extends CI_Controller{
 
             $this->load->view('templates/header', $data);
             $this->load->view('pengguna/index', $data);
-            $this->load->view('templates/footer');    
-        
-        
+            $this->load->view('templates/footer');      
     }
 
     function registrasi()
@@ -107,31 +108,6 @@ class pengguna extends CI_Controller{
     {   
         if(!$this->session->userdata('logged_in')) 
             redirect('home');
-
-    //     if(isset($_POST) && count($_POST) > 0)     
-    //     {   
-    //         $params = array(
-				// 'password' => $this->input->post('password'),
-				// 'fk_level_id' => $this->input->post('fk_level_id'),
-				// 'username' => $this->input->post('username'),
-				// 'nim' => $this->input->post('nim'),
-				// 'nama_lengkap' => $this->input->post('nama_lengkap'),
-				// 'fk_id_jurusan' => $this->input->post('fk_id_jurusan'),
-				// 'fk_id_prodi' => $this->input->post('fk_id_prodi'),
-				// 'semester' => $this->input->post('semester'),
-				// 'kelas' => $this->input->post('kelas'),
-				// 'telpon' => $this->input->post('telpon'),
-    //         );
-            
-    //         $pengguna_id = $this->pengguna_model->add_pengguna($params);
-    //         redirect('pengguna/index');
-    //     }
-    //     else
-    //     {            
-    //             $this->load->view('templates/header');
-    //             $this->load->view('pengguna/add');
-    //             $this->load->view('templates/footer');
-    //     }
 
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user
@@ -201,6 +177,7 @@ class pengguna extends CI_Controller{
                 'foto' => $post_image,
                 'status' => $this->input->post('status'),
                 'admin' => $this->input->post('admin'),
+                'verif_him' =>1,
             );
             // Jika tidak ada error upload gambar, maka kita insert ke database via model Blog 
             if( empty($data['upload_error']) ) {
@@ -217,37 +194,6 @@ class pengguna extends CI_Controller{
     {   
         if(!$this->session->userdata('logged_in')) 
             redirect('home');
-        // check if the pengguna exists before trying to edit it
-     //    $data['pengguna'] = $this->pengguna_model->get_pengguna_by_id($id_user);
-        
-     //    if(isset($data['pengguna']['id_user']))
-     //    {
-     //        if(isset($_POST) && count($_POST) > 0)     
-     //        {   
-     //            $params = array(
-					// 'password' => $this->input->post('password'),
-					// 'fk_level_id' => $this->input->post('fk_level_id'),
-					// 'username' => $this->input->post('username'),
-					// 'nim' => $this->input->post('nim'),
-					// 'nama_lengkap' => $this->input->post('nama_lengkap'),
-					// 'fk_id_jurusan' => $this->input->post('fk_id_jurusan'),
-					// 'fk_id_prodi' => $this->input->post('fk_id_prodi'),
-					// 'semester' => $this->input->post('semester'),
-					// 'kelas' => $this->input->post('kelas'),
-					// 'telpon' => $this->input->post('telpon'),
-     //            );
-
-     //            $this->pengguna_model->update_pengguna($id_user,$params);            
-     //            redirect('pengguna/index');
-     //        }
-     //        else
-     //        {
-     //            $data['_view'] = 'pengguna/edit';
-     //            $this->load->view('layouts/main',$data);
-     //        }
-     //    }
-     //    else
-     //        show_error('The pengguna you are trying to edit does not exist.');
 
         $user_id = $this->session->userdata('id_user');
         // Dapatkan detail user

@@ -24,6 +24,7 @@ class Kategori_model extends CI_Model
      */
     function get_all_kategori()
     {
+        $this->db->join('kategori_induk', 'kategori_induk.kode_kategori_induk = kategori.fk_kode_kategori_induk');
         $this->db->order_by('id_kategori_point', 'desc');
         return $this->db->get('kategori')->result_array();
     }
@@ -59,10 +60,10 @@ class Kategori_model extends CI_Model
             // Mendapatkan data ID dan nama kategori saja
             $this->db->select ('
                 kategori.id_kategori_point,
-                kategori.nama_kategori
+                kategori.tingkat_kegiatan
             ');
             // Urut abjad
-            $this->db->order_by('nama_kategori');
+            $this->db->order_by('tingkat_kegiatan');
             $result = $this->db->get('kategori');
             
             // bikin array
@@ -73,7 +74,7 @@ class Kategori_model extends CI_Model
                 
                 foreach ($result->result_array() as $row) {
                     // Buat array berisi 'value' (id kategori) dan 'nama' (nama kategori)
-                    $dropdown[$row['id_kategori_point']] = $row['nama_kategori'];
+                    $dropdown[$row['id_kategori_point']] = $row['tingkat_kegiatan'];
                 }
             }
             return $dropdown;
