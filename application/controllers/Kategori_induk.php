@@ -12,6 +12,7 @@ class kategori_induk extends CI_Controller{
         $this->load->model('user_model');
         $this->load->helper('MY');
         $this->load->model('kategori_induk_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

@@ -12,6 +12,7 @@ class Level extends CI_Controller{
         $this->load->helper('MY');
         $this->load->model('user_model');
         $this->load->model('Level_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

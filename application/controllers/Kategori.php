@@ -13,6 +13,7 @@ class Kategori extends CI_Controller{
         $this->load->helper('MY');
         $this->load->model('Kategori_model');
         $this->load->model('kategori_induk_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

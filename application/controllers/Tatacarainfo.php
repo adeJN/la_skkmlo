@@ -6,6 +6,7 @@ class Tatacarainfo extends CI_Controller{
         $this->load->model('user_model');
         $this->load->model('Info_poin_model');
         $this->load->helper('download');
+        $this->load->model('notifikasi_model');
     } 
 
     function index()

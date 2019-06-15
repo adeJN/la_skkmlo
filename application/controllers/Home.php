@@ -10,6 +10,9 @@ class Home extends CI_Controller{
         $this->load->model('jurusan_model');
         $this->load->model('prodi_model');
         $this->load->model('pengumuman_model');
+        $this->load->model('Kegiatan_model');
+        $this->load->model('kategori_model');
+        $this->load->model('kategori_induk_model');
     }
 
     function index()
@@ -17,6 +20,7 @@ class Home extends CI_Controller{
         if($this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
+        $data['kegiatan'] = $this->Kegiatan_model->get_all_kegiatan();
         $data['timeline'] = $this->pengumuman_model->get_all_timeline();
 
         $this->load->view('templates/header_home');
@@ -33,6 +37,7 @@ class Home extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
+        $data['kegiatan'] = $this->Kegiatan_model->get_all_kegiatan();
         $data['timeline'] = $this->pengumuman_model->get_all_timeline();
 
         $this->load->view('templates/header_home');
@@ -103,30 +108,31 @@ class Home extends CI_Controller{
         // Dapatkan detail user
         $data['user'] = $this->user_model->get_user_details($user_id);
 
+        $data['kegiatan'] = $this->Kegiatan_model->get_all_kegiatan();
         $data['timeline'] = $this->pengumuman_model->get_all_timeline();
         
         $userData = $this->get_userdata();
-        if ($userData['fk_level_id'] === '1'){
+        // if ($userData['fk_level_id'] === '1'){
             $this->load->view('templates/header_home');
             $this->load->view('indexx/home_view', $data);
             $this->load->view('templates/footer_home');
-        } else if ($userData['fk_level_id'] === '2'){
-            $this->load->view('templates/header_home');
-            $this->load->view('indexx/home_view', $data);
-            $this->load->view('templates/footer_home');
-        } else if ($userData['fk_level_id'] === '3') {
-            $this->load->view('templates/header_home');
-            $this->load->view('indexx/home_view', $data);
-            $this->load->view('templates/footer_home');
-        }else if ($userData['fk_level_id'] === '4') {
-            $this->load->view('templates/header_home');
-            $this->load->view('indexx/home_view', $data);
-            $this->load->view('templates/footer_home');
-        }else if ($userData['fk_level_id'] === '5') {
-            $this->load->view('templates/header_home');
-            $this->load->view('indexx/home_view', $data);
-            $this->load->view('templates/footer_home');
-        }
+        // } else if ($userData['fk_level_id'] === '2'){
+        //     $this->load->view('templates/header_home');
+        //     $this->load->view('indexx/home_view', $data);
+        //     $this->load->view('templates/footer_home');
+        // } else if ($userData['fk_level_id'] === '3') {
+        //     $this->load->view('templates/header_home');
+        //     $this->load->view('indexx/home_view', $data);
+        //     $this->load->view('templates/footer_home');
+        // }else if ($userData['fk_level_id'] === '4') {
+        //     $this->load->view('templates/header_home');
+        //     $this->load->view('indexx/home_view', $data);
+        //     $this->load->view('templates/footer_home');
+        // }else if ($userData['fk_level_id'] === '5') {
+        //     $this->load->view('templates/header_home');
+        //     $this->load->view('indexx/home_view', $data);
+        //     $this->load->view('templates/footer_home');
+        // }
     }
 
     function register()

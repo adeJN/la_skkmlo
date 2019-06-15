@@ -14,7 +14,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr style="background-color:#AFEEEE;">
+                    <tr style="background-color:#6495ed;color:white;">
                       <th>Id</th>
                       <th>Username</th>
                       <th>NIM</th>
@@ -28,7 +28,7 @@
                     </tr>
                   </thead>
                   <tfoot>
-                    <tr style="background-color:#AFEEEE;">
+                    <tr style="background-color:#6495ed;color:white;">
                       <th>Id</th>
                       <th>Username</th>
                       <th>NIM</th>

@@ -15,9 +15,13 @@ class Mhs extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('user_model');
         $this->load->model('point_model');
+        $this->load->model('kegiatan_pengguna_model');
+        $this->load->model('kegiatan_model');
         $this->load->model('kategori_model');
         $this->load->model('kategori_induk_model');
         $this->load->model('pengguna_model');
+        $this->load->model('notifikasi_model');
+        $this->load->model('pengumuman_model');
     } 
 
     function index()
@@ -126,5 +130,48 @@ class Mhs extends CI_Controller{
                     redirect('mhs');
             }
         }
-    } 
+    }
+
+    function keg_saya(){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+
+        $data['kegiatan_pengguna'] = $this->kegiatan_pengguna_model->get_all_kegiatan_pengguna();
+        
+        $user_id = $this->session->userdata('id_user');
+        // Dapatkan detail user
+        $data['user'] = $this->user_model->get_user_details($user_id);
+    
+        $this->load->view('templates/header', $data);
+        $this->load->view('kegiatan_pengguna/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    function daftar_keg($id  =NULL){
+        if(!$this->session->userdata('logged_in')) 
+            redirect('home/indexx');
+        $user_id = $this->session->userdata('id_user');
+        // Dapatkan detail user
+        $data['user'] = $this->user_model->get_user_details($user_id);
+
+        $data['kegiatan'] = $this->kegiatan_model->get_kegiatan_by_id($id);
+        $data['kegiatan_pengguna'] = $this->kegiatan_pengguna_model->get_all_kegiatan_pengguna();
+        if(isset($_POST) && count($_POST) > 0)     
+        {   
+            
+            $params = array(
+                'fk_id_keg' => $this->input->post('id_keg'),
+                'fk_id_user' => $this->input->post('id_user'),
+            );
+            
+            $this->kegiatan_pengguna_model->add_kegiatan_pengguna($params);
+            redirect('kegiatan');
+        }
+        else
+        {            
+            $this->load->view('templates/header',$data);
+            $this->load->view('kegiatan_pengguna/add', $data);
+            $this->load->view('templates/footer');
+        }
+    }
 }

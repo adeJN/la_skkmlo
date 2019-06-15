@@ -15,8 +15,10 @@ class Kegiatan_model extends CI_Model
         {
              // Inner Join dengan table brand
             $this->db->join('kategori', 'kategori.id_kategori_point = kegiatan.fk_kategori_kegiatan');
+            $this->db->join('pengguna', 'pengguna.id_user = kegiatan.dibuat');
+            $this->db->join('level', 'level.id_level = kegiatan.dibuat');
 
-            $query = $this->db->get_where('kegiatan', array('kegiatan.id_kegiatan' => $id));
+            $query = $this->db->get_where('kegiatan', array('id_kegiatan' => $id));
                         
             return $query->row();
         }
@@ -38,6 +40,7 @@ class Kegiatan_model extends CI_Model
 
             // Inner Join dengan table kategori
             $this->db->join('kategori', 'kategori.id_kategori_point = kegiatan.fk_kategori_kegiatan');
+            $this->db->join('pengguna', 'pengguna.id_user = kegiatan.dibuat');
             $this->db->join('level', 'level.id_level = kegiatan.dibuat');
             
             $query = $this->db->get('kegiatan');

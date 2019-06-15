@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23 Mei 2019 pada 22.39
+-- Generation Time: 15 Jun 2019 pada 08.34
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -70,7 +70,7 @@ INSERT INTO `kategori` (`id_kategori_point`, `fk_kode_kategori_induk`, `kode_kat
 (3, '1A', '1A3', 'MENTORING KEAGAMAAN POLINEMA', '-', 2.0, 'SERTIFIKAT/SK'),
 (4, '1B', '1B1', 'INTERNAL KAMPUS DPM', 'KETUA', 2.0, 'SK/ST'),
 (5, '1B', '1B2', 'INTERNAL KAMPUS DPM', 'WAKIL KETUA', 1.0, 'SK/ST'),
-(7, '2A', '2A1', 'INTERNASIONAL', 'KETUA', 4.0, 'SK/ST/KARTU ANGGOTA');
+(8, '1B', '1B13', 'INTERNAL KAMPUS DPM', 'SEKRETARIS', 1.0, 'SK / ST');
 
 -- --------------------------------------------------------
 
@@ -125,8 +125,8 @@ CREATE TABLE `kegiatan` (
 
 INSERT INTO `kegiatan` (`id_kegiatan`, `nama_kegiatan`, `fk_kategori_induk_kegiatan`, `fk_kategori_kegiatan`, `dibuat`, `tggl_kegiatan`, `kuota`, `gambar`, `tggl_buat`, `terbit`) VALUES
 (13, 'seminar', '', 3, 1, '2019-12-31', 200, 'sem11.jpg', '2019-04-30 13:42:07', 't'),
-(15, 'seminar 3', '', 5, 3, '2019-12-31', 200, 'foto1.jpg', '2019-05-01 16:54:06', 'y'),
-(16, 'Android laa', '1B', 1, 3, '2019-12-31', 100, 'pamflet1.jpg', '2019-05-22 21:46:09', 'y');
+(15, 'seminar 3', '', 5, 4, '2019-12-31', 200, 'foto1.jpg', '2019-05-25 14:50:56', 'y'),
+(16, 'Android laa', '1B', 1, 4, '2019-12-31', 100, 'pamflet1.jpg', '2019-05-25 16:41:28', 'y');
 
 -- --------------------------------------------------------
 
@@ -135,11 +135,20 @@ INSERT INTO `kegiatan` (`id_kegiatan`, `nama_kegiatan`, `fk_kategori_induk_kegia
 --
 
 CREATE TABLE `kegiatan_pengguna` (
-  `id_daftar_keg` int(11) NOT NULL,
+  `id_keg_pengguna` int(11) NOT NULL,
   `fk_id_keg` int(11) NOT NULL,
-  `nama_mhs` int(11) NOT NULL,
-  `tggl_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `fk_id_user` int(11) NOT NULL,
+  `tggl_daftar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `terdaftar` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data untuk tabel `kegiatan_pengguna`
+--
+
+INSERT INTO `kegiatan_pengguna` (`id_keg_pengguna`, `fk_id_keg`, `fk_id_user`, `tggl_daftar`, `terdaftar`) VALUES
+(1, 16, 10, '2019-05-26 15:09:49', 1),
+(4, 15, 10, '2019-05-26 14:19:47', 0);
 
 -- --------------------------------------------------------
 
@@ -166,6 +175,50 @@ INSERT INTO `level` (`id_level`, `nama_level`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `id_notifikasi` int(11) NOT NULL,
+  `judul_notifikasi` varchar(100) NOT NULL,
+  `tggl_notifikasi` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fk_id_user` int(11) NOT NULL,
+  `dibaca` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `notifikasi`
+--
+
+INSERT INTO `notifikasi` (`id_notifikasi`, `judul_notifikasi`, `tggl_notifikasi`, `fk_id_user`, `dibaca`) VALUES
+(3, 'Verifikasi poin dibatalkan', '2019-06-08 21:09:52', 10, 1),
+(4, 'Poin diverifikasi Himpunan', '2019-06-08 21:10:21', 10, 1),
+(5, 'Verifikasi poin dibatalkan', '2019-06-08 21:09:58', 10, 1),
+(6, 'Poin di-Verifikasi Himpunan', '2019-06-08 21:10:18', 10, 1),
+(7, 'Poin di-Verifikasi Himpunan', '2019-06-07 23:10:31', 73, 0),
+(8, 'Verifikasi poin dibatalkan', '2019-06-07 23:10:41', 73, 0),
+(9, 'Poin di-Verifikasi Himpunan', '2019-06-07 23:10:49', 73, 0),
+(10, 'Poin di-Verifikasi Himpunan', '2019-06-07 23:10:52', 73, 0),
+(11, 'Semua point anda telah dikirim ke BEM', '2019-06-07 23:18:57', 73, 0),
+(12, 'Poin di-Verifikasi BEM', '2019-06-07 23:21:54', 73, 0),
+(13, 'Poin di-Verifikasi BEM', '2019-06-07 23:22:01', 73, 0),
+(14, 'Verifikasi poin dibatalkan', '2019-06-07 23:22:08', 73, 0),
+(15, 'Poin di-Verifikasi BEM', '2019-06-07 23:22:14', 73, 0),
+(16, 'Semua point anda telah dikirim ke DPK', '2019-06-07 23:22:41', 73, 0),
+(17, 'Poin di-Verifikasi DPK', '2019-06-07 23:23:09', 73, 0),
+(18, 'Poin di-Verifikasi DPK', '2019-06-07 23:23:18', 73, 0),
+(19, 'Verifikasi poin dibatalkan', '2019-06-07 23:24:39', 73, 0),
+(20, 'Verifikasi poin dibatalkan', '2019-06-07 23:24:41', 73, 0),
+(21, 'Verifikasi poin dibatalkan', '2019-06-07 23:25:33', 73, 0),
+(22, 'Verifikasi poin dibatalkan', '2019-06-07 23:25:37', 73, 0),
+(23, 'Semua point di-Verifikasi DPK', '2019-06-07 23:26:04', 73, 0),
+(24, 'Disetujui DPK untuk semua poin', '2019-06-08 21:09:14', 10, 1),
+(25, 'Disetujui DPK untuk semua poin', '2019-06-08 21:02:54', 10, 1),
+(26, 'DPK membatalkan persetujuan semua poin anda', '2019-06-08 07:46:37', 10, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pengguna`
 --
 
@@ -180,7 +233,7 @@ CREATE TABLE `pengguna` (
   `fk_id_prodi` int(11) NOT NULL,
   `tahun_masuk` int(11) NOT NULL,
   `telpon` int(12) NOT NULL,
-  `foto` text NOT NULL,
+  `foto` varchar(500) NOT NULL,
   `status` int(11) NOT NULL,
   `data_dibuat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `admin` int(11) NOT NULL,
@@ -198,9 +251,9 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_user`, `fk_level_id`, `username`, `password`, `nim`, `nama_lengkap`, `fk_id_jurusan`, `fk_id_prodi`, `tahun_masuk`, `telpon`, `foto`, `status`, `data_dibuat`, `admin`, `verif_him`, `verif_him_sdh`, `verif_bem`, `verif_bem_sdh`, `verif_dpk`, `verif_all`) VALUES
 (1, 1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 16326321, 'administrator', 1, 1, 2019, 81221222, '', 0, '2019-05-08 05:34:11', 0, 0, 0, 0, 0, 0, 0),
-(2, 3, 'bem', 'd3c654d99bdfaf101e012bfe2810679e', 0, 'bem polinema', 1, 1, 0, 0, '', 0, '2019-05-22 15:35:03', 0, 0, 0, 0, 0, 0, 0),
+(2, 3, 'bem', 'd3c654d99bdfaf101e012bfe2810679e', 0, 'bem polinema', 1, 1, 0, 0, '', 0, '2019-06-02 15:44:55', 0, 0, 0, 0, 0, 0, 0),
 (4, 2, 'dpk_ti', '8b46f11755d95b9e96e8c76df123adb0', 0, 'TEKNOLOGI INFORMASI', 1, 1, 0, 0, 'iconfinder_EditorTeacher_32_185533.png', 0, '2019-05-22 15:51:04', 0, 0, 0, 0, 0, 0, 0),
-(10, 5, 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 1631710055, 'ade fajar', 1, 2, 2019, 2147483647, 'foto11.jpg', 0, '2019-05-22 16:54:38', 1, 1, 1, 1, 0, 0, 0),
+(10, 5, 'ade', 'a562cfa07c2b1213b3a5c99b756fc206', 1631710055, 'ade fajar', 1, 2, 2019, 2147483647, 'foto11.jpg', 0, '2019-06-07 23:41:04', 1, 1, 1, 1, 1, 1, 1),
 (24, 2, 'dpk_an', '5773c4ccc6f53ccb7200aae4f3e93fb4', 0, 'AKUNTANSI', 7, 19, 0, 0, 'iconfinder_EditorTeacher_32_1855331.png', 0, '2019-05-22 15:51:40', 0, 0, 0, 0, 0, 0, 0),
 (49, 4, 'himpunan_ti', 'b1a36e09f72e139960c1f0f1c118ae66', 0, 'Teknologi Informasi', 1, 2, 2019, 812, 'iconfinder_JD-01_26255263.png', 0, '2019-05-22 15:31:02', 0, 0, 0, 0, 0, 0, 0),
 (50, 4, 'himpunan_ts', '9670e05b11e4c6520962ebd4d6bc0532', 0, 'Teknik Sipil', 2, 3, 2019, 0, 'iconfinder_JD-01_26255264.png', 0, '2019-05-22 15:36:37', 0, 0, 0, 0, 0, 0, 0),
@@ -213,7 +266,10 @@ INSERT INTO `pengguna` (`id_user`, `fk_level_id`, `username`, `password`, `nim`,
 (57, 2, 'dpk_te', 'e0e39f734f5e6d6664da1ccf42672bfe', 0, 'TEKNIK ELEKTRO', 4, 13, 2019, 0, 'iconfinder_EditorTeacher_32_1855333.png', 0, '2019-05-22 15:54:32', 0, 0, 0, 0, 0, 0, 0),
 (58, 2, 'dpk_tekim', 'e8b9f5ebe58219368bd1ac738bf6a2a5', 0, 'TEKNIK KIMIA', 5, 19, 2019, 0, 'iconfinder_EditorTeacher_32_1855334.png', 0, '2019-05-22 15:55:12', 0, 0, 0, 0, 0, 0, 0),
 (59, 2, 'dpk_tm', '841a8095ff39ae704918d72d349d1fb7', 0, 'TEKNIK MESIN', 3, 8, 2019, 0, 'iconfinder_EditorTeacher_32_1855335.png', 0, '2019-05-22 15:56:00', 0, 0, 0, 0, 0, 0, 0),
-(60, 2, 'dpk_ts', '46d8beb2d9fd098c2ca0ccb160cbe507', 0, 'TEKNIK SIPIL', 2, 19, 2019, 0, 'iconfinder_EditorTeacher_32_1855336.png', 0, '2019-05-22 15:57:04', 0, 0, 0, 0, 0, 0, 0);
+(60, 2, 'dpk_ts', '46d8beb2d9fd098c2ca0ccb160cbe507', 0, 'TEKNIK SIPIL', 2, 19, 2019, 0, 'iconfinder_EditorTeacher_32_1855336.png', 0, '2019-05-22 15:57:04', 0, 0, 0, 0, 0, 0, 0),
+(72, 5, 'riska', 'fb059ad1c514876b15b3ec40df1acdac', 1631715599, 'riska novita', 1, 1, 2019, 0, 'default.png', 0, '2019-06-02 17:58:52', 1, 1, 0, 0, 0, 0, 0),
+(73, 5, 'mendol', '068b46e5425f789f63bbe6593215349f', 163171994, 'mendol', 1, 1, 2019, 0, 'default.png', 0, '2019-06-07 23:41:04', 1, 1, 1, 1, 1, 1, 1),
+(74, 5, 'am', 'c04cd38aeb30f3ad1f8ab4e64a0ded7b', 1634343434, 'ae', 1, 1, 2016, 0, 'default.png', 1, '2019-06-12 15:22:10', 1, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -259,13 +315,17 @@ CREATE TABLE `point` (
 --
 
 INSERT INTO `point` (`id_point`, `fk_id_user`, `no_sertifikat`, `nama_kegiatan`, `foto_sertifikat`, `fk_kode_kategori_induk`, `fk_kode_kategori`, `tggl_dibuat`, `verif_himp`, `verif_bemm`, `verif_dpka`) VALUES
-(34, 10, '5713/PL2.3/SE/2017', 'wqe', 'seritif61.jpg', '2A', '2A1', '2019-05-22 16:54:36', 1, 0, 0),
-(36, 10, '123123', 'adaw', 'sertif1.jpg', '1B', '1B1', '2019-05-22 16:54:34', 1, 0, 0),
+(34, 10, '5713/PL2.3/SE/2017', 'wqe', 'seritif61.jpg', '2A', '2A1', '2019-06-03 16:51:42', 1, 1, 1),
 (39, 39, 'ewqwe', 'Timeline', 'sertif42.jpg', '1B', '1B1', '2019-05-22 16:02:56', 0, 1, 1),
 (40, 39, '321', 'Seminar 2', 'sertif2.jpg', '2A', '2A1', '2019-05-22 16:02:53', 0, 1, 0),
 (41, 48, '5713/PL2.3/SE/2018', 'Seminar 2', 'sertif21.jpg', '2A', '2A1', '2019-05-22 06:31:08', 0, 0, 0),
 (42, 48, 'adw/123wqeew', 'Seminar', 'sertif5.jpg', '1A', '1A1', '2019-05-22 06:33:46', 0, 0, 0),
-(43, 40, 'weqew1', 'adaw', 'sertif7.jpg', '1A', '1A1', '2019-05-22 16:58:55', 0, 0, 0);
+(43, 40, 'weqew1', 'adaw', 'sertif7.jpg', '1A', '1A1', '2019-05-22 16:58:55', 0, 0, 0),
+(44, 10, '12321', 'wqeqw', 'sertif22.jpg', '1A', '1A1', '2019-06-03 16:51:42', 1, 1, 1),
+(45, 10, 'adw/123wqe', 'ew', 'sertif52.jpg', '1A', '1A1', '2019-06-07 23:08:36', 1, 1, 1),
+(46, 10, '1232121', 'Timeline', 'sertif9.jpg', '2A', '2A1', '2019-06-07 23:03:29', 1, 1, 1),
+(49, 73, '1weqwe123', 'eqw', 'sertif1.jpg', '1A', '1A1', '2019-06-07 23:26:04', 1, 1, 1),
+(50, 73, 'ewq', 'ewq', 'sertif53.jpg', '1B', '1B1', '2019-06-07 23:26:04', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -313,15 +373,17 @@ INSERT INTO `prodi` (`id_prodi`, `fk_id_jurusan`, `nama_prodi`) VALUES
 CREATE TABLE `timeline` (
   `id_timeline` int(11) NOT NULL,
   `judul` varchar(200) NOT NULL,
-  `gambar` text NOT NULL
+  `gambar` text NOT NULL,
+  `tggl_awal_upload` date NOT NULL,
+  `tggl_trakhir_upload` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `timeline`
 --
 
-INSERT INTO `timeline` (`id_timeline`, `judul`, `gambar`) VALUES
-(1, 'timeline', 'timelie1.png');
+INSERT INTO `timeline` (`id_timeline`, `judul`, `gambar`, `tggl_awal_upload`, `tggl_trakhir_upload`) VALUES
+(1, 'timeline', 'Satuan_kredit_kegiatan_mahasiswa.png', '2019-06-05', '2019-06-12');
 
 --
 -- Indexes for dumped tables
@@ -357,15 +419,21 @@ ALTER TABLE `kegiatan`
 -- Indexes for table `kegiatan_pengguna`
 --
 ALTER TABLE `kegiatan_pengguna`
-  ADD PRIMARY KEY (`id_daftar_keg`),
+  ADD PRIMARY KEY (`id_keg_pengguna`),
   ADD KEY `keg` (`fk_id_keg`),
-  ADD KEY `useeer` (`nama_mhs`);
+  ADD KEY `useeer` (`fk_id_user`);
 
 --
 -- Indexes for table `level`
 --
 ALTER TABLE `level`
   ADD PRIMARY KEY (`id_level`);
+
+--
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id_notifikasi`);
 
 --
 -- Indexes for table `pengguna`
@@ -426,17 +494,22 @@ ALTER TABLE `kegiatan`
 -- AUTO_INCREMENT for table `kegiatan_pengguna`
 --
 ALTER TABLE `kegiatan_pengguna`
-  MODIFY `id_daftar_keg` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_keg_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `level`
 --
 ALTER TABLE `level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
+-- AUTO_INCREMENT for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  MODIFY `id_notifikasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `pengumuman`
 --
@@ -446,7 +519,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `point`
 --
 ALTER TABLE `point`
-  MODIFY `id_point` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_point` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 --
 -- AUTO_INCREMENT for table `prodi`
 --
@@ -466,14 +539,6 @@ ALTER TABLE `timeline`
 --
 ALTER TABLE `kegiatan`
   ADD CONSTRAINT `kategorr` FOREIGN KEY (`fk_kategori_kegiatan`) REFERENCES `kategori` (`id_kategori_point`);
-
---
--- Ketidakleluasaan untuk tabel `pengguna`
---
-ALTER TABLE `pengguna`
-  ADD CONSTRAINT `jurusan` FOREIGN KEY (`fk_id_jurusan`) REFERENCES `jurusan` (`id_jurusan`),
-  ADD CONSTRAINT `level` FOREIGN KEY (`fk_level_id`) REFERENCES `level` (`id_level`),
-  ADD CONSTRAINT `prodi` FOREIGN KEY (`fk_id_prodi`) REFERENCES `prodi` (`id_prodi`);
 
 --
 -- Ketidakleluasaan untuk tabel `prodi`

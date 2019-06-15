@@ -10,6 +10,7 @@ class Jurusan extends CI_Controller{
         parent::__construct();
         $this->load->model('user_model');
         $this->load->model('Jurusan_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

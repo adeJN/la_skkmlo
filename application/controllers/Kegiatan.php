@@ -14,6 +14,7 @@ class Kegiatan extends CI_Controller{
         $this->load->model('Kegiatan_model');
         $this->load->model('kategori_model');
         $this->load->model('kategori_induk_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

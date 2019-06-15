@@ -13,6 +13,7 @@ class Prodi extends CI_Controller{
         $this->load->helper('form');
         $this->load->model('user_model');
         $this->load->library('form_validation');
+        $this->load->model('notifikasi_model');
     } 
 
     /*

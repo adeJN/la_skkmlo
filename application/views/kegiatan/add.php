@@ -74,17 +74,11 @@
                     	<div class="col-md-6">
 							<label for="dibuat" class="control-label">--</label>
 							<div class="form-group">
-								<input type="hidden" name="dibuat" value="<?php echo ( $user->fk_level_id );?>" class="form-control" id="nama_kegiatan"/>
+								<input type="hidden" name="dibuat" value="<?php echo ( $user->id_user );?>" class="form-control" id="nama_kegiatan"/>
 								<h3>Penerbit
 								<font color="#14B9D5">
 								<?php 
-									if($user->fk_level_id==1){
-										echo "Administrator";
-									}else if($user->fk_level_id==3){
-										echo "BEM";
-									}else if($user->fk_level_id==4){
-										echo "HIMPUNAN";
-									}
+									echo $user->nama_lengkap;
 								?>	
 								</font>
 								</h3>

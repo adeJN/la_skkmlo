@@ -79,55 +79,59 @@
               </div>
             </li>
 
+            <?php if ($this->session->userdata('fk_level_id')=='5') :?>
+                <?php $data['notif'] = $this->notifikasi_model->get_all_notifikasi_by_pengguna_limit($user->id_user);
+                  $data['total_point_mah'] = $this->notifikasi_model->jumlah_notifikasi($user->id_user);
+                ?>
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter"><?php echo $data['total_point_mah'];?></span>
               </a>
+
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
-                  Alerts Center
+                  Pemberitahuan
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
+                <?php  foreach($data['notif'] as $n){ 
+                  if(($n['dibaca']) == 0) {?>
+
+                <a class="dropdown-item d-flex align-items-center" href="<?php echo base_url() .'notifikasi/buka_notifikasi/'.$n['id_notifikasi'] ?>">
+                  <div class="dropdown-list-image mr-3">
                     <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
+                      <i class="fas fa-book text-white"></i>
                     </div>
+                    <div class="status-indicator bg-danger"></div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
+                    <div class="small text-gray-500"><?php echo ($n['tggl_notifikasi']); ?></div>
+                    <span class="font-weight-bold"><?php echo ($n['judul_notifikasi']); ?></span>
                   </div>
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+
+                <?php } else {?>
+
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-book-open text-white"></i>
+                    </div>
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500"><?php echo ($n['tggl_notifikasi']); ?></div>
+                    <span class="font-weight"><?php echo ($n['judul_notifikasi']); ?></span>
+                  </div>
+                </a>
+
+                <?php } } ?>
+                <a class="dropdown-item text-center small text-gray-500" href="<?php echo base_url() .'notifikasi'?>">Lihat semua pemberitahuan</a>
               </div>
             </li>
-
+          <?php endif;?>
 
             <div class="topbar-divider d-none d-sm-block"></div>
 

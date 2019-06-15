@@ -4,14 +4,69 @@
         <div class="box">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><font size="5">Data Point
+              <h6 class="m-0 font-weight-bold"><font class="text-primary" size="5">Data Point</font>
                 <?php if ($this->session->userdata('fk_level_id')=='5') :?>
-                <a class="btn btn-info btn-xs" style="float:right;" href="<?php echo site_url('mhs/tp');?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
-                <?php endif; ?>
+                <!-- tambah data point sebelum dan sesudah batas timeline -->
+                <?php 
+                $data['timeline'] = $this->pengumuman_model->get_all_timeline_row();
+                $data['timeline']->tggl_trakhir_upload;
 
-                <?php if($total_point>0){if($total_point_dpk==$total_point){ ?>
+                $tggl_akhir = $data['timeline']->tggl_trakhir_upload;;
+                $tggl_skarang = date('Y-m-d');
+
+                if($tggl_skarang<$tggl_akhir){
+                 ?>
+                <a class="btn btn-info btn-xs" style="float:right;" href="<?php echo site_url('mhs/tp');?>"><i class="fas fa-fw fa-plus"></i> Tambah</a>
+                <?php } else {?>
+                <a class="btn btn-info btn-xs" style="float:right;" href="#" data-toggle="modal" data-target="#tambah"><i class="fas fa-fw fa-plus"></i> Tambah </a>
+                <?php }?>
+                <div class="modal fade" id="tambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Maaf batas akhir penguploadan secara online telah berakhir
+                                    </div>
+                                    <div class="modal-footer">
+                                        Terimakasih
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                <!-- end tambah data poin -->
+                <!-- cetak form mahasiswa -->
+                <?php if(($pengguna->verif_all)==1) {?>
                     <a class="btn btn-success btn-xs" style="float:right;margin-right:10px " href="<?php echo site_url('mhs/tp');?>"><i class="fas fa-fw fa-print"></i> Cetak</a>
-                <?php } }?>
+                <?php } else { ?>
+                    <a class="btn btn-success btn-xs" style="float:right;margin-right:10px " href="#" data-toggle="modal" data-target="#cetak"><i class="fas fa-fw fa-print"></i> Cetak</a>
+                <?php } ?>
+
+                            <div class="modal fade" id="cetak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Form anda baru bisa dicetak jika point point anda sudah diverifikasi dan disetujui oleh DPK
+                                    </div>
+                                    <div class="modal-footer">
+                                        Terimakasih
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                <!-- end cetak form mahasiswa -->
+                <?php endif; ?>
 
               <?php if ($this->session->userdata('fk_level_id')=='1' ||$this->session->userdata('fk_level_id')=='2' ||$this->session->userdata('fk_level_id')=='3' ||$this->session->userdata('fk_level_id')=='4' ) :?> id pengguna : 
                 <a href="<?php echo site_url('pengguna/edit/'.$pengguna->id_user); ?>">
@@ -53,6 +108,7 @@
 
                     </td>
                     <td style="width:30%">
+                    <!-- Total NILAI -->
                     <button class="btn btn-warning btn-xs" style="border-radius: 20px" readonly><?php echo $total_point_mah; if($total_point_mah==0){echo "0";}?></button>
 
                     <?php if(($pengguna->verif_him_sdh)==1) :?>
@@ -75,6 +131,7 @@
                     <?php if(($pengguna->verif_all)==0) :?>
                     <button class="btn btn-success btn-xs" style="border-radius: 20px" disabled="">0</button>
                     <?php endif; ?>
+                    <!--end Total NILAI -->
                     <td>
                 </tr>
                 </table>
@@ -88,14 +145,16 @@
                             Setujui
                         </a>
                     <?php endif; ?>
+                    <hr>
                 <?php endif; ?>
                 <?php if(($pengguna->verif_all)==1) :?>
                     <a href="<?php echo site_url('point/btl_dpk_setuju/'.$pengguna->id_user); ?>" onClick="return confirm('Batalkan persetujuan?')" class="btn btn-success btn-xs">
                         Data sudah terverifikasi
                     </a>
+                    <hr>
                 <?php endif; ?>
                 
-                    <a href="<?php echo site_url('point/verif_all_satu_mah/'.$pengguna->id_user); ?>" onClick="return confirm('Verif semua?')" class="btn btn-success btn-xs">
+                    <a href="<?php echo site_url('point/verif_all_satu_mah/'.$pengguna->id_user); ?>" onClick="return confirm('Verifikasi semua?')" class="btn btn-success btn-xs">
                         Verifikasi semua
                     </a>
             <?php endif; ?>
@@ -139,7 +198,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" style="font-size: 13px" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr style="background-color:#AFEEEE;">
+                    <tr style="background-color:#6495ed;color:white;">
                         <th>No</th>
                         <th>No/sertifikat</th>
                         <th>Nama Kegiatan</th>
@@ -152,7 +211,7 @@
                     </tr>
                   </thead>
                   <tfoot>
-                    <tr style="background-color:#AFEEEE;">
+                    <tr style="background-color:#6495ed;color:white;">
                         <th>No</th>
                         <th>No/sertifikat</th>
                         <th>Nama Kegiatan</th>
@@ -174,6 +233,7 @@
                         <td><?php echo $p->kode_kategori ; ?></td>
                         <td><?php echo $p->tingkat_kegiatan ; ?></td>
                         <td><?php echo $p->jabatan ; ?></td>
+
                         <td>
                             <?php if( $p->foto_sertifikat ) : ?><center>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#a">
@@ -183,22 +243,18 @@
                               <?php ; else : ?>
                               <img class="card-img-top" style="width: 100px"  src="<?php echo base_url() .'assets/img/default.jpg' ?>" alt="Card image cap">
                               <?php endif; ?>
-
-
-
                         </td>
-                        <td><?php echo $p->point ; ?>
-                        </td>
+                        <td><?php echo $p->point ; ?></td>
                         <td>
                             <?php if ($this->session->userdata('fk_level_id')=='2') :?>
                                 <center>
                                 <?php if(($p->verif_dpka)==0) :?>
-                                    <a onClick="return confirm('Verifikasi poin?')" href="<?php echo site_url('point/verif_dpk/'.$p->id_point); ?>" class="btn btn-danger btn-xs" >
+                                    <a onClick="return confirm('Verifikasi poin?')" href="<?php echo site_url('point/verif_dpk/'.$p->id_point); ?>" style="font-size: 13px" class="btn btn-danger btn-xs" >
                                         <span class="fa fa-play-circle"></span> verifikasi
                                     </a>
                                 <?php endif; ?> 
                                 <?php if(($p->verif_dpka)==1) :?>
-                                    <a href="<?php echo site_url('point/no_verif_dpk/'.$p->id_point); ?>" onClick="return confirm('Tidak verifikasi poin?')" class="btn btn-success btn-xs" >
+                                    <a href="<?php echo site_url('point/no_verif_dpk/'.$p->id_point); ?>" onClick="return confirm('Tidak verifikasi poin?')" style="font-size: 13px" class="btn btn-success btn-xs" >
                                         <span class="fa fa-check"></span> terverifikasi
                                     </a>
                                 <?php endif; ?>
@@ -206,36 +262,36 @@
                             <?php if ($this->session->userdata('fk_level_id')=='3') :?>
                                 <center>
                                 <?php if(($p->verif_bemm)==0) :?>
-                                    <a onClick="return confirm('Verifikasi poin?')" href="<?php echo site_url('point/verif_bem/'.$p->id_point); ?>" class="btn btn-danger btn-xs" >
+                                    <a onClick="return confirm('Verifikasi poin?')" style="font-size: 13px" href="<?php echo site_url('point/verif_bem/'.$p->id_point); ?>" class="btn btn-danger btn-xs" >
                                         <span class="fa fa-play-circle"></span> verifikasi
                                     </a>
                                 <?php endif; ?> 
                                 <?php if(($p->verif_bemm)==1) :?>
-                                    <a href="<?php echo site_url('point/no_verif_bem/'.$p->id_point); ?>" onClick="return confirm('Tidak verifikasi poin?')" class="btn btn-success btn-xs" >
+                                    <a href="<?php echo site_url('point/no_verif_bem/'.$p->id_point); ?>" style="font-size: 13px" onClick="return confirm('Tidak verifikasi poin?')" class="btn btn-success btn-xs" >
                                         <span class="fa fa-check"></span> terverifikasi
                                     </a>
                                 <?php endif; ?>
                                 <hr style="margin: 2px">
-                                <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" class="btn btn-info btn-xs" ><span class="fa fa-cogs"></span> Edit</a> <br>
+                                <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" style="font-size: 13px" class="btn btn-info btn-xs" ><span class="fa fa-cogs"></span> Edit</a> <br>
                                 <hr style="margin: 2px">
-                                <a href="<?php echo site_url('point/remove/'.$p->id_point); ?>" onClick="return confirm('Hapus poin?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                                <a href="<?php echo site_url('point/remove/'.$p->id_point); ?>" style="font-size: 13px" onClick="return confirm('Hapus poin?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                             <?php endif; ?>
                             <?php if ($this->session->userdata('fk_level_id')=='4') :?>
                                 <center>
                                 <?php if(($p->verif_himp)==0) :?>
-                                    <a onClick="return confirm('Verifikasi poin?')" href="<?php echo site_url('point/verif_himp/'.$p->id_point); ?>" class="btn btn-danger btn-xs" >
+                                    <a onClick="return confirm('Verifikasi poin?')" style="font-size: 13px"  href="<?php echo site_url('point/verif_himp/'.$p->id_point); ?>" class="btn btn-danger btn-xs" >
                                         <span class="fa fa-play-circle"></span> verifikasi
                                     </a>
                                 <?php endif; ?> 
                                 <?php if(($p->verif_himp)==1) :?>
-                                    <a href="<?php echo site_url('point/no_verif_himp/'.$p->id_point); ?>" onClick="return confirm('Tidak verifikasi poin?')" class="btn btn-success btn-xs" >
+                                    <a href="<?php echo site_url('point/no_verif_himp/'.$p->id_point); ?>" style="font-size: 13px"  onClick="return confirm('Tidak verifikasi poin?')" class="btn btn-success btn-xs" >
                                         <span class="fa fa-check"></span> terverifikasi
                                     </a>
                                 <?php endif; ?>
                                 <hr style="margin: 2px">
-                                <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" class="btn btn-info btn-xs" ><span class="fa fa-cogs"></span> Edit</a> <br>
+                                <a href="<?php echo site_url('pengguna/edit/'.$p->id_user); ?>" class="btn btn-info btn-xs" style="font-size: 13px"  ><span class="fa fa-cogs"></span> Edit</a> <br>
                                 <hr style="margin: 2px">
-                                <a href="<?php echo site_url('point/remove/'.$p->id_point); ?>" onClick="return confirm('Hapus poin?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
+                                <a href="<?php echo site_url('point/remove/'.$p->id_point); ?>" style="font-size: 13px"  onClick="return confirm('Hapus poin?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
                             <?php endif; ?>
 
                             <?php if ($this->session->userdata('fk_level_id')=='5' || $this->session->userdata('fk_level_id')=='1') :?>
@@ -260,9 +316,16 @@
                                 <?php if(($p->verif_dpka)==1) :?>
                                     <button class="btn btn-success btn-xs" style="font-size: 13px"><span class="fa fa-check"></span> DPK</button>
                                 <?php endif; ?> 
+                                <hr style="margin: 2px">
+                                <!-- desable button hapus setelah diverif -->
+                                <?php if(($p->verif_himp)==0) :?>
+                                    <a href="<?php echo site_url('point/remove/'.$p->id_point); ?>" style="font-size: 13px" onClick="return confirm('Hapus poin?')" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Hapus</a>
+                                <?php ; ?> 
+                                <?php else :?>
+                                    <button style="font-size: 13px" class="btn btn-danger btn-xs" disabled=""><span class="fa fa-trash" ></span> Hapus</button>
+                                <?php endif; ?> 
                             <?php endif; ?>
 
- 
                         </td>
                     </tr>
                     <?php $no++; } ?>

@@ -139,7 +139,7 @@
 
                     </thead>
                     <tbody>
-                      <?php foreach($infopoin as $k){ if($k['fk_kode_kategori_induk']=='1A'){?>
+                      <?php foreach($infopoin as $k){?>
                       <tr>
                         <td><?php echo $k['kode_kategori']; ?></td>
                         <td><?php echo $k['tingkat_kegiatan']; ?></td>
@@ -155,7 +155,7 @@
                           <?php endif; ?> 
                         <?php endif; ?> 
                       </tr>
-                      <?php } }?>
+                      <?php } ?>
                     </tbody>
                   </table>
                 

@@ -135,7 +135,7 @@
         </div>
         <button type="submit" class="btn btn-default btn-lg">Login</button>
       <?php echo form_close(); ?><br>
-      Tidak punya akun, silahkan <a href="<?php echo site_url('home/register')?>">registrasi</a>
+      Pengguna baru, silahkan <a href="<?php echo site_url('home/register')?>">Daftar dulu</a>
     </div>
     
     <div class="col-md-8 col-md-offset-2" style="margin-top: 60px">
@@ -184,107 +184,21 @@
       <h2>Kegiatan</h2>
       <hr>
     </div>
-    <div class="categories">
-      <ul class="cat">
-        <li>
-          <ol class="type">
-            <li><a href="#" data-filter="*" class="active">All</a></li>
-            <li><a href="#" data-filter=".web">Seminar</a></li>
-            <li><a href="#" data-filter=".photography">Workshop</a></li>
-            <li><a href="#" data-filter=".product">Panitia</a></li>
-          </ol>
-        </li>
-      </ul>
-      <div class="clearfix"></div>
-    </div>
     <div class="row">
       <div class="portfolio-items">
+
+        <?php  $no=1; foreach($kegiatan as $k){ if($k->terbit=='y'){?>
         <div class="col-sm-6 col-md-3 col-lg-3 web">
           <div class="portfolio-item">
-            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" title="Project Tewitle" data-lightbox-gallery="gallery1">
+            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/'. $k->gambar )?>" title="<?php echo $k->nama_kegiatan; ?>" data-lightbox-gallery="gallery1">
               <div class="hover-text">
-                <h4>Project Tdsatle</h4>
+                <h4><?php echo $k->nama_kegiatan; ?></h4>
               </div>
-              <img src="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" class="img-responsive" alt="Project Titewewle"> </a> </div>
+              <img src="<?php echo site_url('assets/img/kegiatan/'. $k->gambar )?>" class="img-responsive" alt="<?php echo $k->nama_kegiatan; ?>"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 product">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-              </div>
-              <img src="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-              </div>
-              <img src="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-              </div>
-              <img src="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 web">
-          <div class="portfolio-item">
-            <div class="hover-bg"> <a href="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" title="Project Title" data-lightbox-gallery="gallery1">
-              <div class="hover-text">
-                <h4>Project Title</h4>
-              </div>
-              <img src="<?php echo site_url('assets/img/kegiatan/sem1.jpg')?>" class="img-responsive" alt="Project Title"> </a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Contact Section -->
-<div id="contact" class="text-center">
-  <div class="container">
-    <div class="section-title center">
-      <h2>Kontak </h2>
-      <hr>
-    </div>
-    <div class="col-md-8 col-md-offset-2">
-      <form name="sentMessage" id="contactForm" novalidate>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="text" id="name" class="form-control" placeholder="Nama" required="required">
-              <p class="help-block text-danger"></p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <input type="email" id="email" class="form-control" placeholder="Email" required="required">
-              <p class="help-block text-danger"></p>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <textarea name="message" id="message" class="form-control" rows="4" placeholder="Pesan" required></textarea>
-          <p class="help-block text-danger"></p>
-        </div>
-        <div id="success"></div>
-        <button type="submit" class="btn btn-default btn-lg">Kirim Pesan</button>
-      </form>
-      <div class="social">
-        <ul>
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-          <li><a href="#"><i class="fa fa-behance"></i></a></li>
-        </ul>
+        <?php } } ?>
+
       </div>
     </div>
   </div>

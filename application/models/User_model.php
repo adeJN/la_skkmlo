@@ -30,14 +30,14 @@ class User_model extends CI_Model
     public function register($enc_password){
         // Array data user 
         $data = array(
-            'fk_level_id' => ('5'),
+            'fk_level_id' => 5,
             'username' => $this->input->post('username'),
             'password' => $enc_password,
             'nim' => $this->input->post('nim'),
             'nama_lengkap' => $this->input->post('nama'),
             'fk_id_jurusan' => $this->input->post('id_jurusan'),
             'fk_id_prodi' => $this->input->post('id_prodi'),
-            'foto' => '',
+            'foto' => 'default.png',
             'status' => 1,
             'admin' => 1,
         );

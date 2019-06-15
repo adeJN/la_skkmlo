@@ -61,6 +61,12 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="<?php echo site_url('kegiatan_pengguna');?>" >
+          <i class="fas fa-fw fa-calendar"></i>
+          <span>Kegiatan Mahasiswa</span>
+        </a>
+      </li>
+      <li class="nav-item">
          <a class="nav-link" href="<?php echo site_url('tatacarainfo');?>" >
           <i class="fas fa-fw fa-info"></i>
           <span>Tata Cara dan info </span>
@@ -153,12 +159,6 @@
           <span>Tata Cara dan info poin</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('kontak');?>">
-          <i class="fas fa-fw fa-phone"></i>
-          <span>Contact</span>
-        </a>
-      </li>
       <hr class="sidebar-divider my-0">
   <?php endif; ?>
 
@@ -212,15 +212,15 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="tatacarainfo" >
-          <i class="fas fa-fw fa-info"></i>
-          <span>Tata Cara</span>
+        <a class="nav-link" href="<?php echo site_url('kegiatan_pengguna');?>" >
+          <i class="fas fa-fw fa-calendar"></i>
+          <span>Kegiatan Mahasiswa</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" >
-          <i class="fas fa-fw fa-inbox"></i>
-          <span>Contact</span>
+        <a class="nav-link" href="tatacarainfo" >
+          <i class="fas fa-fw fa-info"></i>
+          <span>Tata Cara</span>
         </a>
       </li>
       <hr class="sidebar-divider my-0">
@@ -259,12 +259,6 @@
           <span>Tata Cara</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('kontak');?>" >
-          <i class="fas fa-fw fa-inbox"></i>
-          <span>Contact</span>
-        </a>
-      </li>
       <hr class="sidebar-divider my-0">
   <?php endif; ?>
 
@@ -296,15 +290,15 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('tatacarainfo');?>" >
-          <i class="fas fa-fw fa-info"></i>
-          <span>Tata Cara & Info Poin</span>
+        <a class="nav-link" href="<?php echo site_url('mhs/keg_saya');?>" >
+          <i class="fas fa-fw fa-calendar"></i>
+          <span>Kegiatan saya</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" >
-          <i class="fas fa-fw fa-phone"></i>
-          <span>Contact</span>
+        <a class="nav-link" href="<?php echo site_url('tatacarainfo');?>" >
+          <i class="fas fa-fw fa-info"></i>
+          <span>Tata Cara & Info Poin</span>
         </a>
       </li>
       <hr class="sidebar-divider my-0">

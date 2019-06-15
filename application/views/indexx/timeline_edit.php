@@ -23,6 +23,10 @@
 							</div>
 						</div>
 						<div class="col-md-6">
+              <label for="nama_kegiatan" class="control-label">Tanggal awal upload</label>
+              <div class="form-group">
+                <input type="date" name="tggl_awal_upload" value="<?php echo set_value('tggl_awal_upload', $timeline->tggl_awal_upload) ?>" class="form-control" id="nama_kegiatan" required/>
+              </div>
 						</div>
 						<div class="col-md-6">
 							<label for="gambar" class="control-label">Gambar</label>
@@ -33,6 +37,12 @@
 								<input type="file" class="form-controsl" name="thumbnail">
 							</div>
 						</div>
+            <div class="col-md-6">
+              <label for="nama_kegiatan" class="control-label">Tanggal akhir upload</label>
+              <div class="form-group">
+                <input type="date" name="tggl_trakhir_upload" value="<?php echo set_value('tggl_trakhir_upload', $timeline->tggl_trakhir_upload) ?>" class="form-control" id="nama_kegiatan" required/>
+              </div>
+            </div>
 					</div>
                   </div>
                   <br>

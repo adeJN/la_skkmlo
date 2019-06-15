@@ -439,9 +439,31 @@
             </div>
           </div>
             <div class="card shadow mb-4">
-              <?php if($total_point>0){if($total_point_dpk==$total_point){ ?>
-                <button class="btn btn-success btn-xs"><i class="fas fa-fw fa-print"></i> Cetak form</button>
-              <?php } }?>
+                <?php if(($pengguna->verif_all)==1) {?>
+                <a href="<?php echo base_url() .'cetak/form_poin' ?>" class="btn btn-success btn-xs"><i class="fas fa-fw fa-print"></i> Cetak form</a>
+              <?php } else { ?>
+                    <a class="btn btn-success btn-xs" style="float:right " href="#" data-toggle="modal" data-target="#cetak"><i class="fas fa-fw fa-print"></i> Cetak form</a>
+                <?php } ?>
+
+                            <div class="modal fade" id="cetak" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Peringatan</h5>
+                                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <b>Form anda baru bisa dicetak jika point point anda sudah diverifikasi dan disetujui oleh DPK</b>
+                                    </div>
+                                    <div class="modal-footer">
+                                        Terimakasih
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                <!-- end cetak form mahasiswa -->
             </div>
           <!-- pengumuman -->
               <div class="card shadow mb-4">

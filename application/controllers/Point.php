@@ -11,6 +11,8 @@ class Point extends CI_Controller{
         $this->load->model('Point_model');
         $this->load->model('user_model');
         $this->load->model('pengguna_model');
+        $this->load->model('notifikasi_model');
+        $this->load->model('notifikasi_model');
     } 
 
     /*
@@ -52,10 +54,17 @@ class Point extends CI_Controller{
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
 
+        $user_id=$id;
+
         $post_data = array('verif_him_sdh'=>1 ,'verif_bem'=>1,
+            );
+        $data_notif = array(
+            'judul_notifikasi' => 'Semua point anda telah dikirim ke BEM',
+            'fk_id_user' => $user_id,
             );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('pengguna');
     } 
     function btl_krm_bem($id){
@@ -71,11 +80,17 @@ class Point extends CI_Controller{
     function krm_dpk($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
+        $user_id=$id;
 
         $post_data = array('verif_bem_sdh'=>1 ,'verif_dpk'=>1,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Semua point anda telah dikirim ke DPK',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('pengguna/mahasiswa');
     }
     function btl_krm_dpk($id){
@@ -92,21 +107,33 @@ class Point extends CI_Controller{
     function dpk_setuju($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
+        $user_id=$id;
 
         $post_data = array('verif_all'=>1,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Disetujui DPK untuk semua poin',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('pengguna');
     } 
     function btl_dpk_setuju($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
+        $user_id=$id;
 
         $post_data = array('verif_all'=>0,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'DPK membatalkan persetujuan semua poin anda',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->pengguna_model->update_pengguna($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('pengguna');
     } 
 
@@ -119,8 +146,15 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_himp' => 1,
             );
+
+        $data_notif = array(
+            'judul_notifikasi' => 'Poin di-Verifikasi Himpunan',
+            'fk_id_user' => $user_id,
+            );
+
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
     function no_verif_himp($id){
@@ -132,8 +166,13 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_himp' => 0,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Verifikasi poin dibatalkan',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
 
@@ -146,8 +185,13 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_bemm' => 1,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Poin di-Verifikasi BEM',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
     function no_verif_bem($id){
@@ -159,8 +203,13 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_bemm' => 0,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Verifikasi poin dibatalkan',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
 
@@ -173,8 +222,13 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_dpka' => 1,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Poin di-Verifikasi DPK',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
     function no_verif_dpk($id){
@@ -186,8 +240,13 @@ class Point extends CI_Controller{
 
         $post_data = array('verif_dpka' => 0,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Verifikasi poin dibatalkan',
+            'fk_id_user' => $user_id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_point($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/lihat/'.$user_id);
     }
 
@@ -203,25 +262,30 @@ class Point extends CI_Controller{
         // $user = $this->Point_model->get_point($id);
         // $user_id=$user['fk_id_user'];
 
-        $post_data = array('verif_dpka' => 1,
+        $post_data = array('verif_all' => 1,
             );
 
         foreach($idList as $idTunggal)
             // Update kategori sesuai post_data dan id-nya
-            $this->Point_model->update_point($post_data, $idTunggal);
+            $this->pengguna_model->update_pengguna($post_data, $idTunggal);
+                redirect('pengguna');
+
     }
 
     function verif_all_satu_mah($id){
         if(!$this->session->userdata('logged_in')) 
             redirect('home/indexx');
         
-        $user = $this->Point_model->get_point($id);
-        $user_id=$user['fk_id_user'];
 
         $post_data = array('verif_dpk' => 1,'verif_all' => 1,
             );
+        $data_notif = array(
+            'judul_notifikasi' => 'Semua point di-Verifikasi DPK',
+            'fk_id_user' => $id,
+            );
             // Update kategori sesuai post_data dan id-nya
             $this->Point_model->update_all_point_mah($post_data, $id);
+            $this->notifikasi_model->add_notifikasi($data_notif);
                 redirect('point/update_point/'.$id);
     }
     function update_point($id){

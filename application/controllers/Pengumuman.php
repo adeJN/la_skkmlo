@@ -8,6 +8,7 @@ class Pengumuman extends CI_Controller{
         $this->load->library('form_validation');
         $this->load->model('user_model');
         $this->load->model('pengumuman_model');
+        $this->load->model('notifikasi_model');
     } 
 
     function index()
@@ -95,8 +96,8 @@ class Pengumuman extends CI_Controller{
                 $config['upload_path']          = './assets/img/timeline/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 2048;
-                $config['max_width']            = 1000;
-                $config['max_height']           = 2000;
+                $config['max_width']            = 1600;
+                $config['max_height']           = 3000;
                 // Load library upload
                 $this->load->library('upload', $config);
                 // Apakah file berhasil diupload?
@@ -128,6 +129,8 @@ class Pengumuman extends CI_Controller{
             $post_data = array(
                 'judul' => $this->input->post('judul'),
                 'gambar' => $post_image,
+                'tggl_awal_upload' => $this->input->post('tggl_awal_upload'),
+                'tggl_trakhir_upload' => $this->input->post('tggl_trakhir_upload'),
             );
             // Jika tidak ada error upload gambar, maka kita update datanya 
             if( empty($data['upload_error']) ) {

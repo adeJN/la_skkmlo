@@ -22,6 +22,13 @@ class Pengumuman_model extends CI_Model
         return $query->result();
     }
 
+    public function get_all_timeline_row()
+    {
+
+        $query = $this->db->get('timeline');
+        return $query->row();
+    }
+
     // Dapatkan kategori berdasar ID
     public function get_pengumuman_by_id($id)
     {
